@@ -1,0 +1,1654 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MaiFest — Diseño Estratégico 1</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Inter:wght@300;400;500;600&display=swap');
+
+  :root{
+    --ink:#f2e9d8;
+    --ink-dim:#b7ac97;
+    --paper:#1c1b19;
+    --line:#3a3733;
+  }
+
+  ::selection{
+    background:#fcc75f;
+    color:#1c1b19;
+  }
+
+  h1::selection, h2::selection, h3::selection,
+  .cover-title::selection, .cat-title::selection, .main-title::selection,
+  .sub-btn::selection, .research-title::selection, .research-sub::selection,
+  .q-head::selection{
+    background:#aa1f70;
+    color:#f2e9d8;
+  }
+
+  *{ box-sizing:border-box; }
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ===== COVER ===== */
+  .cover{
+    min-height:100svh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    gap:12vh;
+    padding:48px 20px;
+    width:100%;
+    border-bottom:1px solid var(--line);
+  }
+
+  .cover-uni-name{
+    font-size:clamp(13px, 3vw, 15px);
+    font-weight:600;
+    letter-spacing:0.09em;
+    text-transform:uppercase;
+    color:var(--ink);
+    margin:0 0 8px;
+  }
+
+  .cover-uni-sub{
+    font-size:11.5px;
+    font-weight:300;
+    color:var(--ink-dim);
+    line-height:1.7;
+    margin:0 0 26px;
+  }
+
+  .cover-label{
+    font-size:13px;
+    font-weight:300;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--ink-dim);
+    margin:0 0 8px;
+  }
+
+  .cover-title{
+    font-family:'Archivo Black', sans-serif;
+    font-weight:400;
+    font-size:clamp(52px, 15vw, 150px);
+    text-transform:uppercase;
+    letter-spacing:0.01em;
+    color:var(--ink);
+    margin:0;
+    line-height:0.95;
+  }
+
+  .cover-name{
+    font-size:12.5px;
+    font-weight:400;
+    color:var(--ink-dim);
+    margin:0 0 4px;
+    letter-spacing:0.02em;
+  }
+
+  .cover-name span{
+    color:var(--ink);
+    font-weight:500;
+  }
+
+  /* ===== INDICE ===== */
+  .indice{
+    max-width:720px;
+    margin:0 auto;
+    padding:56px 24px 30px;
+  }
+
+  .indice-eyebrow{
+    text-align:center;
+    font-size:12px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--ink-dim);
+    font-weight:600;
+    margin:0 0 40px;
+  }
+
+  .main-item{
+    border-top:1px solid var(--line);
+  }
+  .main-item:last-child{
+    border-bottom:1px solid var(--line);
+  }
+
+  .main-btn{
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:16px;
+    background:none;
+    border:none;
+    cursor:pointer;
+    padding:24px 4px;
+    transition:opacity 0.2s ease;
+  }
+  .main-btn:hover{
+    opacity:0.75;
+  }
+  .main-btn:focus-visible{
+    outline:2px solid var(--ink);
+    outline-offset:4px;
+  }
+
+  .main-title{
+    font-family:'Anton', sans-serif;
+    font-weight:400;
+    font-size:clamp(20px, 4.8vw, 25px);
+    text-transform:uppercase;
+    letter-spacing:0.01em;
+    color:var(--ink);
+    transform:scaleY(1.14);
+    transform-origin:left top;
+    display:inline-block;
+  }
+
+  .main-plus{
+    font-size:22px;
+    font-weight:400;
+    color:var(--ink-dim);
+    transition:transform 0.25s ease;
+    flex-shrink:0;
+  }
+  .main-item.open .main-plus{
+    transform:rotate(45deg);
+  }
+
+  .main-panel{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height 0.3s ease;
+  }
+
+  .sub-list{
+    list-style:none;
+    margin:0;
+    padding:0 0 26px;
+    text-align:left;
+  }
+
+  .sub-item{
+    border-top:1px solid var(--line);
+  }
+  .sub-item:first-child{
+    border-top:none;
+  }
+
+  .sub-btn{
+    width:100%;
+    background:none;
+    border:none;
+    cursor:pointer;
+    color:var(--ink-dim);
+    font-size:13.5px;
+    font-weight:500;
+    letter-spacing:0.02em;
+    text-transform:uppercase;
+    text-align:left;
+    padding:14px 8px;
+    transition:color 0.2s ease;
+  }
+  .sub-btn:hover{
+    color:var(--ink);
+  }
+
+  .sub-btn-link{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+  }
+  .sub-arrow{
+    color:var(--ink-dim);
+    transition:transform 0.2s ease;
+    flex-shrink:0;
+  }
+  .sub-btn-link:hover .sub-arrow{
+    transform:translateX(3px);
+  }
+
+  .sub-item.open .sub-btn{
+    color:var(--ink);
+  }
+
+  .sub-panel{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height 0.35s ease;
+  }
+
+  .sub-panel-inner{
+    padding:2px 6px 26px;
+    text-align:left;
+  }
+
+  .placeholder{
+    font-size:13.5px;
+    font-style:italic;
+    color:var(--ink-dim);
+    text-align:left;
+    padding:4px 0 22px;
+  }
+
+  /* shared content typography (used inside sub-panels and preliminar) */
+  .intro-text{
+    font-size:14.5px;
+    line-height:1.65;
+    color:var(--ink-dim);
+    margin:0 0 18px;
+  }
+
+  .q-list{
+    list-style:none;
+    margin:0;
+    padding:0;
+  }
+  .q-block{
+    padding:16px 0;
+    border-top:1px solid var(--line);
+  }
+  .q-block:first-child{
+    border-top:none;
+  }
+  .q-head{
+    font-size:14.5px;
+    font-weight:600;
+    line-height:1.5;
+    color:var(--ink);
+    display:flex;
+    gap:10px;
+    margin:0 0 8px;
+  }
+  .q-head::before{
+    content:"•";
+    font-weight:600;
+    color:var(--ink-dim);
+    flex-shrink:0;
+  }
+  .a-text{
+    font-size:14px;
+    line-height:1.65;
+    color:var(--ink-dim);
+    margin:0 0 10px;
+    padding-left:20px;
+  }
+  .a-text:last-child{ margin-bottom:0; }
+  .a-list{
+    list-style:none;
+    margin:0 0 10px;
+    padding-left:20px;
+  }
+  .a-list li{
+    font-size:14px;
+    line-height:1.6;
+    color:var(--ink-dim);
+    padding:3px 0 3px 16px;
+    position:relative;
+  }
+  .a-list li::before{
+    content:"–";
+    position:absolute;
+    left:0;
+    color:var(--ink-dim);
+  }
+  .mini-head{
+    font-size:14px;
+    font-weight:600;
+    color:var(--ink);
+    margin:18px 0 8px;
+  }
+
+  .survey-block{
+    padding:22px 0;
+    border-top:1px solid var(--line);
+  }
+  .survey-block:first-of-type{
+    border-top:none;
+  }
+  .survey-q{
+    font-size:14.5px;
+    font-weight:600;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 12px;
+  }
+  .survey-img{
+    display:block;
+    width:100%;
+    height:auto;
+    border:1px solid var(--line);
+    border-radius:2px;
+    margin:0 0 14px;
+    background:#252320;
+  }
+
+  .insight-quote{
+    font-style:italic;
+    font-size:14.5px;
+    line-height:1.6;
+    color:var(--ink);
+    border-left:2px solid var(--ink-dim);
+    padding-left:14px;
+    margin:0 0 14px;
+  }
+  .insight-note{
+    font-size:13px;
+    line-height:1.6;
+    color:var(--ink-dim);
+    font-style:italic;
+    margin:10px 0 0;
+  }
+
+  /* ===== BRIEF PAGE (vista separada) ===== */
+  #view-brief{
+    min-height:100vh;
+  }
+
+  .brief-cover{
+    min-height:calc(100svh - 60px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:40px 20px;
+    border-bottom:1px solid var(--line);
+  }
+
+  .page-topbar{
+    position:sticky;
+    top:0;
+    z-index:10;
+    background:var(--paper);
+    border-bottom:1px solid var(--line);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px 24px;
+    max-width:720px;
+    margin:0 auto;
+  }
+
+  .back-btn{
+    background:none;
+    border:none;
+    color:var(--ink-dim);
+    font-family:'Inter', sans-serif;
+    font-size:13px;
+    font-weight:500;
+    letter-spacing:0.02em;
+    cursor:pointer;
+    padding:6px 0;
+    transition:color 0.2s ease;
+  }
+  .back-btn:hover{
+    color:var(--ink);
+  }
+
+  .page-topbar-label{
+    font-size:11.5px;
+    font-weight:600;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--ink-dim);
+    margin:0;
+  }
+
+  /* ===== FLOW CONTENT (contenido desarrollado del índice) ===== */
+  .flow-content{
+    max-width:720px;
+    margin:0 auto;
+    padding:10px 24px 20px;
+    scroll-margin-top:24px;
+  }
+
+  .flow-content .research-title{ margin-top:44px; }
+  .flow-content .research-title:first-child{ margin-top:0; }
+  .flow-content .research-sub{ scroll-margin-top:24px; }
+
+  /* ===== PRELIMINAR ===== */
+  .preliminar-wrap{
+    max-width:720px;
+    margin:0 auto;
+    padding:0 24px 60px;
+  }
+
+  .preliminar-btn{
+    width:100%;
+    display:block;
+    background:none;
+    border:1px solid var(--line);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    font-weight:600;
+    font-size:14px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    text-align:center;
+    padding:20px;
+    cursor:pointer;
+    transition:background 0.2s ease, border-color 0.2s ease;
+  }
+  .preliminar-btn:hover{
+    background:#252320;
+    border-color:var(--ink-dim);
+  }
+
+  .preliminar-panel{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height 0.4s ease;
+  }
+
+  .preliminar-inner{
+    padding-top:36px;
+  }
+
+  .research-title{
+    font-family:'Anton', sans-serif;
+    font-weight:400;
+    font-size:clamp(20px, 4.6vw, 25px);
+    text-transform:uppercase;
+    letter-spacing:0.01em;
+    color:var(--ink);
+    transform:scaleY(1.14);
+    transform-origin:left top;
+    margin:34px 0 16px;
+  }
+  .research-title:first-child{ margin-top:0; }
+
+  .research-sub{
+    font-family:'Anton', sans-serif;
+    font-weight:400;
+    font-size:clamp(14px, 3.4vw, 16px);
+    text-transform:uppercase;
+    letter-spacing:0.02em;
+    color:var(--ink-dim);
+    transform:scaleY(1.08);
+    transform-origin:left top;
+    margin:22px 0 8px;
+  }
+
+  .research-p{
+    font-size:14.5px;
+    line-height:1.65;
+    color:var(--ink);
+    margin:0 0 14px;
+    max-width:64ch;
+  }
+
+  .ref-list{
+    list-style:none;
+    margin:0;
+    padding:0;
+  }
+  .ref-list li{
+    font-size:13.5px;
+    line-height:1.65;
+    color:var(--ink-dim);
+    padding:14px 0;
+    border-top:1px solid var(--line);
+  }
+  .ref-list li:first-child{
+    border-top:none;
+    padding-top:0;
+  }
+  .ref-list a{
+    color:var(--ink);
+    text-decoration:none;
+    border-bottom:1px solid var(--line);
+    word-break:break-all;
+    transition:color 0.2s ease, border-color 0.2s ease;
+  }
+  .ref-list a:hover{
+    color:var(--ink-dim);
+    border-color:var(--ink-dim);
+  }
+
+  footer{
+    max-width:720px;
+    margin:0 auto;
+    padding:0 24px 60px;
+    font-size:12px;
+    color:var(--ink-dim);
+    text-align:center;
+  }
+
+  @media (max-width:480px){
+    .indice{ padding:44px 18px 20px; }
+    .flow-content{ padding:10px 18px 20px; }
+    .preliminar-wrap{ padding:0 18px 50px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="view-main">
+
+<section class="cover">
+  <div class="cover-top">
+    <p class="cover-uni-name">Universidad Rafael Landívar</p>
+    <p class="cover-uni-sub">Facultad de Arquitectura y Diseño<br>Licenciatura en Diseño<br>Diseño Estratégico 1</p>
+    <p class="cover-label">Proyecto</p>
+    <h1 class="cover-title">MaiFest</h1>
+  </div>
+  <div class="cover-authors">
+    <p class="cover-name"><span>Aldo Fernando Morales Loarca</span> — 1247923</p>
+    <p class="cover-name"><span>Roca Oliva María José</span> — 1104424</p>
+    <p class="cover-name"><span>Nathalia Jimena Leonardo Rosales</span> — 1081524</p>
+  </div>
+</section>
+
+<section class="indice">
+  <p class="indice-eyebrow">Índice</p>
+  <div id="mainAccordion"></div>
+</section>
+
+<footer>Toca un botón para explorar el contenido.</footer>
+
+</div>
+
+<div id="view-brief" style="display:none;">
+  <div class="page-topbar">
+    <button class="back-btn" data-back>← Volver al índice</button>
+    <p class="page-topbar-label">01. Brief</p>
+  </div>
+  <section class="brief-cover">
+    <h1 class="cover-title">Briefing</h1>
+  </section>
+  <section class="flow-content" id="flowContentBrief"></section>
+</div>
+
+<div id="view-audiencia" style="display:none;">
+  <div class="page-topbar">
+    <button class="back-btn" data-back>← Volver al índice</button>
+    <p class="page-topbar-label">02. Audiencia</p>
+  </div>
+  <section class="brief-cover">
+    <h1 class="cover-title">Audiencia</h1>
+  </section>
+  <section class="flow-content" id="flowContentAudiencia"></section>
+</div>
+
+<div id="view-cliente" style="display:none;">
+  <div class="page-topbar">
+    <button class="back-btn" data-back>← Volver al índice</button>
+    <p class="page-topbar-label">03. Cliente</p>
+  </div>
+  <section class="brief-cover">
+    <h1 class="cover-title">Cliente</h1>
+  </section>
+  <section class="flow-content" id="flowContentCliente"></section>
+</div>
+
+<div id="view-tema" style="display:none;">
+  <div class="page-topbar">
+    <button class="back-btn" data-back>← Volver al índice</button>
+    <p class="page-topbar-label">04. Tema</p>
+  </div>
+  <section class="brief-cover">
+    <h1 class="cover-title">Tema</h1>
+  </section>
+  <section class="flow-content" id="flowContentTema"></section>
+</div>
+
+<div id="view-insights" style="display:none;">
+  <div class="page-topbar">
+    <button class="back-btn" data-back>← Volver al índice</button>
+    <p class="page-topbar-label">05. Insights</p>
+  </div>
+  <section class="brief-cover">
+    <h1 class="cover-title">Insights</h1>
+  </section>
+  <section class="flow-content" id="flowContentInsights"></section>
+</div>
+
+<div id="view-referencias" style="display:none;">
+  <div class="page-topbar">
+    <button class="back-btn" data-back>← Volver al índice</button>
+    <p class="page-topbar-label">06. Referencias</p>
+  </div>
+  <section class="brief-cover">
+    <h1 class="cover-title">Referencias</h1>
+  </section>
+  <section class="flow-content" id="flowContentReferencias"></section>
+</div>
+
+<script>
+/* ---------- BRIEF: 16 categorías (contenido completo) ---------- */
+const briefData = [
+  {
+    title: "1. Descripción del proyecto",
+    intro: "El MaiFest es una celebración cultural y comunitaria inspirada en las tradiciones austriacas del mes de mayo. El proyecto busca conservar su carácter tradicional, pero mejorar su presentación mediante una propuesta gráfica más clara, moderna y coherente.",
+    qas: [
+      {
+        q: "¿Qué significa el MaiFest para el colegio?",
+        a: ["El MaiFest representa una de las tradiciones culturales más importantes del colegio. Para la comunidad educativa representa un momento de convivencia, pertenencia y nostalgia, ya que participan estudiantes de distintas edades, familias, docentes y numerosos exalumnos. Los padres observan a sus hijos formar parte de una tradición que se repite durante diferentes etapas de su vida escolar, mientras que los exalumnos regresan a un espacio que reconocen como hogar."]
+      },
+      {
+        q: "¿Qué actividades incluirá el festival?",
+        a: ["La tradición comienza antes del festival, cuando el director esconde el árbol y los estudiantes de cuarto grado deben buscarlo. Después, el Maibaum se instala dentro del colegio y se decora con cintas y flores. Durante el evento se desarrollan principalmente:"],
+        list: ["Folkstanz o bailes tradicionales alrededor del árbol.", "Venta de comida típica, salchichas austriacas y pasteles.", "Uso de trajes tradicionales.", "Stands de comida, productos, servicios y empresas.", "Coros y presentaciones musicales.", "Juegos infantiles e inflables.", "Rifa para recaudar fondos.", "Actividades impulsadas por la Asociación Amigos."],
+        a2: ["Los bailes son la actividad de mayor interés, seguidos por la comida. Los coros y presentaciones musicales suelen generar menos atención, salvo cuando participa directamente un familiar o amigo."]
+      },
+      {
+        q: "¿Habrá alguna temática específica para 2027?",
+        a: ["No se busca crear una temática diferente, sino conservar la esencia tradicional del MaiFest. La propuesta deberá inspirarse en la cultura austriaca, el Árbol de Mayo, las flores, los trajes, la gastronomía y los ambientes rurales europeos.", "Visualmente se busca una propuesta limpia, sobria, europea y moderna, utilizando principalmente rojo y blanco. Debe evitarse una estética excesivamente colorida, infantil o saturada de elementos primaverales."]
+      }
+    ]
+  },
+  {
+    title: "2. Objetivos del proyecto",
+    qas: [
+      {
+        q: "¿Cuál es el objetivo principal del evento para 2027?",
+        a: ["Objetivo general: fortalecer el MaiFest 2027 como un evento cultural, familiar y solidario, mediante una comunicación visual coherente que facilite la recaudación de fondos, dé visibilidad a la Asociación Amigos y mejore la experiencia de la comunidad antes, durante y después del festival.", "Objetivos específicos:"],
+        list: ["Aumentar la recaudación de fondos mediante la rifa, donaciones, ventas y participación de empresas.", "Dar a conocer qué es la Asociación Amigos, qué actividades realiza y a quiénes beneficia.", "Comunicar la relación entre la cultura austriaca y guatemalteca.", "Desarrollar una identidad visual reconocible para el evento y la asociación.", "Mejorar la comunicación de actividades, horarios, stands, menús, premios y métodos de pago.", "Generar mayor participación de estudiantes, familias, exalumnos y público externo.", "Reconocer a las empresas, servicios y personas que apoyan mediante premios o donaciones.", "Posicionar el festival como una experiencia cultural y social, no únicamente como una mañana deportiva o una venta de comida."]
+      },
+      {
+        q: "¿Qué esperan que recuerden los invitados después del evento?",
+        a: ["Se espera que los asistentes recuerden que el MaiFest no es solamente una actividad recreativa o una mañana deportiva, sino un evento con un propósito cultural y solidario.", "El público debe comprender qué hace la Asociación Amigos, a quién beneficia y cómo cada compra, donación o número de rifa contribuye a sus proyectos. También se desea que recuerden la experiencia familiar, la convivencia, las tradiciones y el sentimiento de pertenecer a una comunidad."]
+      },
+      {
+        q: "¿Habrá alguna diferencia significativa esta edición respecto a años anteriores?",
+        a: ["La principal diferencia será la profesionalización de la comunicación visual. En años anteriores se han utilizado materiales básicos realizados en Word o Canva, sin una identidad totalmente integrada.", "Para 2027 se busca una imagen más coherente, mejor señalización, una comunicación más clara de la rifa, mayor presencia de la Asociación Amigos y una mejor organización de los puntos de contacto antes y durante el evento."]
+      }
+    ]
+  },
+  {
+    title: "3. Objetivos de la comunicación",
+    intro: "La comunicación deberá informar, orientar y motivar al público, mostrando que el festival está dirigido a toda la comunidad y que la participación de cada persona contribuye a una causa concreta.",
+    qas: [
+      {
+        q: "¿Desean generar mayor participación de estudiantes y familias?",
+        a: ["Sí. Se busca aumentar la participación de estudiantes, padres, hermanos, abuelos, docentes y exalumnos. El evento debe presentarse como una actividad para toda la familia, no únicamente para quienes participan en los bailes o presentaciones.", "También será necesario involucrar a los estudiantes que no forman parte del programa artístico, para evitar que se sientan excluidos. Esto puede lograrse mediante actividades culturales, dinámicas, recorridos, juegos o espacios relacionados con la Asociación Amigos."]
+      },
+      {
+        q: "¿Quieren atraer más público al festival o es solo para estudiantes y sus familias?",
+        a: ["El evento está abierto a cualquier persona que desee asistir. Aunque la comunidad educativa es el público principal, también pueden participar exalumnos, amigos, empresas, patrocinadores, donantes y personas interesadas en la cultura austriaca.", "La comunicación puede atraer a un público más amplio, siempre que conserve el carácter familiar, comunitario y seguro del festival."]
+      }
+    ]
+  },
+  {
+    title: "4. Objetivos de la marca",
+    intro: "La marca debe representar tanto al MaiFest como a la Asociación Amigos, diferenciando sus funciones, pero construyendo una relación visual clara entre ambos.",
+    qas: [
+      {
+        q: "¿Qué valores quieren comunicar?",
+        a: ["Los valores principales son:"],
+        list: ["Apoyo y solidaridad.", "Comunidad.", "Familia.", "Pertenencia.", "Inclusión.", "Tradición.", "Colaboración.", "Convivencia.", "Interculturalidad.", "Nostalgia."],
+        a2: ["La comunicación debe mostrar que el evento reúne a distintas generaciones y que la participación de la comunidad permite ayudar a otras personas."]
+      },
+      {
+        q: "¿Buscan fortalecer la identidad cultural del colegio?",
+        a: ["Sí. La cultura austriaca ya está presente y afianzada en el colegio, pero necesita comunicarse de manera más clara, atractiva y coherente.", "El reto no es inventar una nueva identidad cultural, sino actualizar su representación visual sin perder la tradición. Además, se desea reforzar la conexión entre Austria, Guatemala y las comunidades beneficiadas por la Asociación Amigos."]
+      }
+    ]
+  },
+  {
+    title: "5. Value proposition",
+    intro: "La propuesta de valor del MaiFest se basa en ofrecer una experiencia que combina cultura, familia, convivencia y apoyo social.",
+    qas: [
+      {
+        q: "¿Qué beneficios encuentran las familias al asistir?",
+        a: ["Las familias pueden compartir en un ambiente relajado, observar a sus hijos participar, disfrutar comida típica, comprar productos, reencontrarse con otros miembros de la comunidad y apoyar una causa.", "Además, el festival permite que los padres vean a sus hijos formar parte de una tradición que se repite durante diferentes etapas escolares, lo cual genera recuerdos y un fuerte vínculo emocional con el colegio."]
+      },
+      {
+        q: "¿Cuál consideran que es la esencia del evento?",
+        a: ["La esencia del MaiFest es reunir a la comunidad alrededor de una tradición cultural que también genera ayuda.", "Más que una feria o una actividad escolar, es un espacio donde diferentes generaciones conviven, recuerdan, participan y colaboran con los proyectos de la Asociación Amigos."]
+      }
+    ]
+  },
+  {
+    title: "6. Insights",
+    intro: "“No asisten solo a ver un festival; quieren revivir una tradición donde ven crecer a sus hijos. Fortalecer la comunidad.”",
+    qas: [
+      {
+        q: "¿Cómo ven a los estudiantes reaccionar a este tipo de actividades?",
+        a: ["Los estudiantes muestran entusiasmo, ansiedad y expectativa, especialmente por las tradiciones que conocen desde pequeños. Muchos desean llegar a cuarto grado para poder participar en la búsqueda del árbol y formar parte directa del festival.", "Sin embargo, los niños que no participan en bailes, coros o actividades específicas pueden sentirse menos involucrados. Por ello, existe la oportunidad de diseñar una experiencia que incluya también a quienes asisten como espectadores."]
+      },
+      {
+        q: "¿Qué actividades son las favoritas y las menos favoritas del público?",
+        a: ["La actividad favorita es el baile tradicional, porque representa el momento cultural más esperado y permite ver a los estudiantes participar. La comida es el segundo atractivo principal, ya que impulsa la convivencia y ofrece productos que el público busca específicamente durante el evento.", "Los coros y las presentaciones musicales generan menor interés general. Su valor aumenta cuando participa directamente un hijo, familiar o amigo."]
+      }
+    ]
+  },
+  {
+    title: "7. Antecedentes",
+    intro: "Los antecedentes visuales y fotográficos permitirán reconocer los elementos que forman parte de la tradición y detectar las principales oportunidades de mejora.",
+    qas: [
+      {
+        q: "¿Pueden compartir fotografías o materiales de años anteriores?",
+        a: ["Sí. Se cuenta con fotografías y materiales de eventos anteriores. Estos recursos pueden organizarse en una galería por ediciones o actividades, útil tanto para el proceso de diseño como para la comunicación del festival.", "Las fotografías permitirán observar los trajes, los bailes, la decoración, los stands, los espacios y la participación de la comunidad."]
+      },
+      {
+        q: "¿Existe una identidad gráfica anterior?",
+        a: ["Existen piezas realizadas anteriormente, pero no una identidad gráfica completamente consolidada. La comunicación se ha producido de manera funcional, utilizando principalmente Word, Canva y piezas aisladas.", "Esto ha provocado que el evento no cuente con un sistema visual consistente entre invitaciones, correos, redes, señalización y materiales de la rifa."]
+      },
+      {
+        q: "¿Qué elementos desean conservar?",
+        a: ["Se desea conservar:"],
+        list: ["El Maibaum.", "Los colores rojo y blanco.", "Los bailes y trajes tradicionales.", "Las flores y cintas.", "La madera y el carácter rural.", "La gastronomía austriaca.", "La convivencia familiar.", "El propósito solidario.", "La relación entre Austria y Guatemala."]
+      }
+    ]
+  },
+  {
+    title: "8. Piezas a desarrollar",
+    intro: "Las piezas deberán cubrir tres necesidades: promocionar el evento, facilitar la experiencia del público y dar visibilidad a la Asociación Amigos.",
+    qas: [
+      {
+        q: "¿Qué piezas realizadas anteriormente no les funcionaron?",
+        a: ["Las piezas anteriores han cumplido su función informativa, pero no han construido una identidad reconocible. Los principales problemas han sido la falta de coherencia visual, el uso de formatos básicos y la poca presencia de la Asociación Amigos.", "También se identifican oportunidades de mejora en los menús pequeños, la señalización, la organización de los stands y la interfaz visual de la aplicación de pagos."]
+      },
+      {
+        q: "¿Qué cosas no quieren que haya en esta campaña?",
+        a: ["No se desea una gráfica excesivamente colorida, infantil, saturada o basada en una explosión de primavera. También debe evitarse:"],
+        list: ["Perder la esencia austriaca.", "Utilizar una temática que no corresponda al MaiFest.", "Presentar el evento únicamente como una feria de comida.", "Ocultar el propósito de recaudación.", "Mantener a la Asociación Amigos en segundo plano.", "Utilizar una estética antigua o poco profesional."]
+      },
+      {
+        q: "¿Qué piezas son indispensables y obligatorias?",
+        a: ["Las piezas prioritarias son:"],
+        list: ["Identidad visual del MaiFest.", "Propuestas de logo para la Asociación Amigos.", "Invitación al evento.", "Invitación y piezas para la rifa.", "Comunicación de premios y donaciones.", "Números o comprobantes de rifa.", "Redes sociales, mailing, correos y circulares.", "Mapa o croquis del evento.", "Menús grandes, preferiblemente tamaño tabloide.", "Señalética e identificadores de stands.", "Programación de actividades.", "Piezas para explicar y posicionar a la asociación.", "Propuesta visual para identificar la aplicación de pago."]
+      },
+      {
+        q: "¿Están abiertos a piezas nuevas propuestas por nosotros?",
+        a: ["Sí. Existe apertura para proponer nuevas piezas que mejoren la experiencia, la recaudación y la organización del festival.", "Entre las oportunidades se encuentran la mejora visual de la aplicación, una galería histórica, herramientas para la compra de números, recursos para reconocer a patrocinadores y dinámicas que involucren a estudiantes que no participan en presentaciones."]
+      },
+      {
+        q: "¿Qué tanta innovación les gustaría?",
+        a: ["Se busca una innovación moderada. La propuesta debe modernizar la comunicación, pero mantenerse dentro de los códigos tradicionales del festival.", "La innovación debe concentrarse en la claridad, organización, funcionalidad y coherencia visual, no en modificar las tradiciones centrales."]
+      }
+    ]
+  },
+  {
+    title: "9. Tono y manera",
+    qas: [
+      {
+        q: "¿Qué tono debe tener la comunicación?",
+        a: ["La comunicación debe tener un tono cercano, familiar, cultural y profesional. No debe ser demasiado formal, pero tampoco excesivamente juvenil o infantil.", "Debe transmitir calidez, tradición y solidaridad mediante mensajes claros, acogedores e informativos."]
+      }
+    ]
+  },
+  {
+    title: "10. Audiencia",
+    qas: [
+      {
+        q: "¿Con qué características definirían a los estudiantes y a la comunidad?",
+        a: ["Los estudiantes se caracterizan por conocer la tradición desde pequeños, sentir expectativa por participar y relacionar el festival con momentos importantes de su vida escolar.", "La comunidad es:"],
+        list: ["Familiar.", "Participativa.", "Multigeneracional.", "Cercana.", "Tradicional.", "Solidaria.", "Vinculada emocionalmente con el colegio."],
+        a2: ["También existe una presencia importante de exalumnos, quienes aportan un fuerte componente de nostalgia y pertenencia."]
+      }
+    ]
+  },
+  {
+    title: "11. Mandatorios",
+    qas: [
+      {
+        q: "¿Qué lineamientos debemos seguir y no cambiar?",
+        a: ["Se deberá mantener la relación con la cultura austriaca, el Maibaum, los colores rojo y blanco y el carácter tradicional del festival. También será obligatorio:"],
+        list: ["Comunicar el propósito de recaudación.", "Dar protagonismo a la Asociación Amigos.", "Considerar a toda la familia.", "Mantener una estética limpia y sobria.", "Reconocer a donantes, empresas y patrocinadores.", "Facilitar la orientación dentro del evento.", "Evitar que la modernización elimine la tradición."],
+        a2: ["Para el logo de Amigos, deberán explorarse conceptos como caminos, interconexión, Austria, Guatemala, comunidades mayas y ayuda."]
+      }
+    ]
+  },
+  {
+    title: "12. Presupuesto",
+    qas: [
+      {
+        q: "¿Cuánto gastan aproximadamente en piezas impresas?",
+        a: ["Se busca trabajar con un gasto mínimo, por lo que deberán priorizarse las piezas impresas que tengan una función directa dentro del evento.", "Existe disposición para invertir especialmente en mapas, menús, señalización, identificadores de stands y materiales de la rifa. El monto exacto aún debe confirmarse."]
+      },
+      {
+        q: "¿Invierten en Meta o publicidad digital?",
+        a: ["No se confirmó una inversión específica en Meta. Debido al presupuesto limitado, se priorizarán los canales propios del colegio, como redes sociales, correos, circulares y comunicación directa con las familias.", "La posibilidad de invertir en publicidad digital deberá consultarse posteriormente."]
+      }
+    ]
+  },
+  {
+    title: "13. Tiempos",
+    qas: [
+      {
+        q: "¿Desde cuándo empiezan a promocionar el evento?",
+        a: ["La fecha exacta no fue definida. Sin embargo, la comunicación deberá comenzar con suficiente anticipación para solicitar premios, recibir donaciones, contactar empresas y promocionar la rifa. La campaña deberá organizar diferentes etapas:"],
+        list: ["Convocatoria de donantes y patrocinadores.", "Lanzamiento del evento.", "Promoción de la rifa.", "Presentación de premios.", "Información logística.", "Recordatorios finales."]
+      },
+      {
+        q: "¿Cuál es la fecha del MaiFest 2027?",
+        a: ["La fecha exacta aún debe ser confirmada por la organización."]
+      },
+      {
+        q: "¿Tienen un cronograma preestablecido?",
+        a: ["No se proporcionó un cronograma definitivo. Será necesario construirlo junto con la Asociación Amigos, tomando en cuenta las fechas de aprobación, promoción, impresión, venta de números y realización del festival."]
+      }
+    ]
+  },
+  {
+    title: "14. Medición de resultados",
+    qas: [
+      {
+        q: "¿Consideran que las piezas aportan a que la comunidad se interese y participe?",
+        a: ["Sí. Una comunicación más clara puede aumentar el interés, facilitar la participación y mejorar la comprensión del propósito del evento. Los resultados podrán medirse mediante:"],
+        list: ["Fondos recaudados.", "Números de rifa vendidos.", "Donaciones y premios recibidos.", "Participación de familias y exalumnos.", "Empresas y stands inscritos.", "Uso de la aplicación de pago.", "Interacción en redes y correos.", "Reconocimiento de la Asociación Amigos."],
+        a2: ["También será importante evaluar si el público comprendió qué hace la asociación y a quiénes beneficia."]
+      }
+    ]
+  },
+  {
+    title: "15. Entrega de artes finales",
+    qas: [
+      {
+        q: "¿Qué plataformas manejan para subir los archivos?",
+        a: ["La plataforma no fue especificada. Deberá confirmarse si la entrega se realizará mediante Google Drive, correo electrónico o alguna plataforma institucional.", "Los archivos deberán entregarse organizados por categorías, formatos y usos, diferenciando piezas digitales, impresas y editables."]
+      }
+    ]
+  },
+  {
+    title: "16. Aprobación del brief",
+    qas: [
+      {
+        q: "¿A qué persona podemos contactar para consultar temas de diseño?",
+        a: ["El contacto mencionado es Silvia. Sin embargo, deberá confirmarse si ella será la responsable directa de aprobar las decisiones visuales o si estas también deberán pasar por el director u otra persona encargada."]
+      },
+      {
+        q: "¿A qué persona podemos contactar para consultar sobre la actividad?",
+        a: ["Silvia funcionará como contacto principal para resolver dudas sobre el evento y conectar al equipo con las personas encargadas de logística, programación, rifa, asociación y actividades culturales."]
+      }
+    ]
+  }
+];
+
+// categorías 1-16 ya fueron desarrolladas en la sección de flujo (flow-content)
+briefData.forEach((cat, i) => { cat.filled = true; cat.anchor = 'brief-' + (i + 1); });
+
+function qaHtml(cat){
+  let html = '';
+  if (cat.intro) html += `<p class="intro-text">${cat.intro}</p>`;
+  html += '<ul class="q-list">';
+  cat.qas.forEach(item => {
+    html += `<li class="q-block"><p class="q-head">${item.q}</p>`;
+    item.a.forEach(p => { html += `<p class="a-text">${p}</p>`; });
+    if (item.list) {
+      html += '<ul class="a-list">';
+      item.list.forEach(li => { html += `<li>${li}</li>`; });
+      html += '</ul>';
+    }
+    if (item.a2) item.a2.forEach(p => { html += `<p class="a-text">${p}</p>`; });
+    html += '</li>';
+  });
+  html += '</ul>';
+  return html;
+}
+
+/* ---------- AUDIENCIA: contenido mapeado (instrumentos / resultados / ruta) ---------- */
+const instrumentosHtml = `
+<h3 class="mini-head">Grupo objetivo principal</h3>
+<p class="research-p">Comunidad del Colegio Austriaco.</p>
+<h3 class="mini-head">Nicho</h3>
+<p class="research-p">Padres de familia y alumnos actuales.</p>
+<h3 class="mini-head">Instrumento para conocer a la audiencia</h3>
+<p class="research-p">La investigación está orientada principalmente a encontrar emociones, motivaciones, opiniones y experiencias profundas. Por eso, una entrevista o un grupo focal dará mejores insights que una encuesta.</p>
+<h3 class="mini-head">Grupo focal con</h3>
+<ul class="a-list"><li>Padres de familia.</li><li>Estudiantes actuales.</li><li>Ex alumnos.</li></ul>
+<h3 class="mini-head">Objetivo del instrumento</h3>
+<p class="research-p">Conocer cómo vive la audiencia el MaiFest, qué la motiva a participar, qué problemas encuentra y qué relación tiene con la Asociación Amigos.</p>
+`;
+
+/* ---------- AUDIENCIA: resultados de la observación y acercamientos ---------- */
+const encuestaPreguntas = [
+  {
+    q: "1. ¿Cuál es tu relación actual con el Instituto Austriaco?",
+    p1: "La gran mayoría de las personas encuestadas son estudiantes actuales del Instituto Austriaco, mientras que solo hay una participación mínima de exalumnos. Esto muestra que la percepción obtenida representa principalmente a quienes todavía forman parte activa de la comunidad estudiantil y que viven el MaiFest como una actividad presente dentro de su etapa escolar.",
+    p2: "El hecho de que casi todos sean estudiantes actuales también indica que las respuestas están construidas desde una relación directa con el colegio y no desde una visión externa. Por lo tanto, el formulario refleja principalmente la opinión de quienes todavía están inmersos en la dinámica institucional y conocen el evento como parte de su experiencia escolar actual."
+  },
+  {
+    q: "2. ¿En qué nivel estudias actualmente?",
+    p1: "Casi siete de cada diez participantes pertenecen a Diversificado, mientras que poco más de una cuarta parte estudia en Básicos. Esto indica que la muestra tiene una mayor presencia de estudiantes de grados superiores, por lo que la percepción general corresponde principalmente a adolescentes que ya llevan varios años dentro del colegio.",
+    p2: "Esta concentración también permite identificar que el grupo encuestado tiene una mayor madurez escolar y una trayectoria más larga dentro de la institución. Al haber poca representación de estudiantes más pequeños, las respuestas reflejan principalmente la forma en que los alumnos mayores perciben el MaiFest y no necesariamente la experiencia de toda la población estudiantil."
+  },
+  {
+    q: "3. ¿Cuántas veces has asistido al MaiFest?",
+    p1: "Ningún participante indicó haber asistido una sola vez o nunca, lo que demuestra que todos tienen una experiencia previa con el MaiFest. Además, una parte importante ha asistido prácticamente todos los años, mientras que muchos otros acumulan entre cuatro y más de seis participaciones. Esto refleja una alta familiaridad con el evento.",
+    p2: "La frecuencia de asistencia muestra que el MaiFest no es percibido como una actividad ocasional, sino como algo que se repite dentro de la vida escolar de los participantes. La mayoría ya conoce su dinámica y ha tenido suficientes oportunidades para formar una opinión propia, por lo que las respuestas provienen de personas con una experiencia relativamente constante con el evento."
+  },
+  {
+    q: "4. Cuando piensas en el MaiFest, ¿qué es lo primero que recuerdas?",
+    p1: "Las respuestas se concentran principalmente en el Volkstanz, el Maibaum, la comida y los amigos. Esto indica que los estudiantes recuerdan el MaiFest a partir de elementos muy concretos y fáciles de identificar, especialmente aquellos que forman parte visible de la celebración o que están relacionados con momentos que disfrutan personalmente.",
+    p2: "También se observa que varios recuerdos tienen un componente social, como comer o pasar tiempo con amigos. Esto demuestra que el recuerdo del evento no depende únicamente de sus símbolos tradicionales, sino también de las experiencias personales que se generan durante ese día. Para muchos, el MaiFest parece quedarse en la memoria tanto por lo que ocurre como por con quién lo viven."
+  },
+  {
+    q: "5. ¿Qué elementos recuerdas con mayor claridad de ediciones anteriores?",
+    p1: "La comida y el Maibaum sobresalen claramente como los elementos más recordados, seguidos por los bailes tradicionales y el tiempo compartido con amigos. Esto muestra que los estudiantes retienen con mayor facilidad aquello que tiene una presencia fuerte durante el evento y que se repite de manera constante entre ediciones.",
+    p2: "En cambio, elementos como los coros, los juegos y los stands tienen una recordación mucho menor. Esto puede interpretarse como una diferencia en el nivel de impacto que genera cada actividad: algunas forman parte central de la experiencia del MaiFest, mientras que otras parecen pasar más desapercibidas o tener menor importancia dentro del recuerdo de los asistentes."
+  },
+  {
+    q: "6. ¿Qué sensación relacionas más con el MaiFest?",
+    p1: "Las emociones que más se repiten son alegría, diversión y emoción, lo que muestra que el MaiFest está asociado principalmente con una experiencia agradable. También aparece la nostalgia en una cantidad considerable de respuestas, lo que indica que para algunos estudiantes el evento tiene un componente emocional relacionado con recuerdos de años anteriores.",
+    p2: "Por otro lado, sentimientos como pertenencia y orgullo aparecen en una minoría. Esto sugiere que la conexión emocional con el MaiFest se basa más en disfrutar el momento que en relacionarlo directamente con un sentimiento de identidad institucional. En general, el evento provoca emociones positivas, pero estas se orientan más hacia el entretenimiento y la convivencia."
+  },
+  {
+    q: "7. ¿Qué significa el MaiFest para ti?",
+    p1: "Las respuestas muestran que el MaiFest tiene un significado principalmente relacionado con convivencia, celebración y tradición. Muchos estudiantes lo entienden como un espacio para compartir con amigos o familia, mientras que otros lo describen simplemente como una actividad o festividad del colegio.",
+    p2: "La variedad de respuestas refleja que no existe un significado completamente uniforme. Para algunos tiene una carga más emocional, mientras que para otros es una actividad escolar más sencilla. Sin embargo, se repite la idea de compartir y pasar tiempo con otras personas, lo que demuestra que el componente social ocupa un lugar importante dentro de la manera en que los estudiantes entienden el evento."
+  },
+  {
+    q: "8. ¿Consideras que el MaiFest es una tradición importante dentro del colegio?",
+    p1: "La gran mayoría le dio una valoración alta, y ningún estudiante lo calificó como una tradición poco importante. Esto evidencia que existe un reconocimiento general del MaiFest como una actividad que ya forma parte de la identidad y costumbres del colegio.",
+    p2: "El hecho de que las valoraciones se concentren entre los niveles medios y altos indica que el evento posee una importancia establecida entre los estudiantes. Aunque no todos lo valoran con la misma intensidad, prácticamente nadie cuestiona su lugar como tradición dentro de la institución."
+  },
+  {
+    q: "9. Durante tus años en el colegio, ¿de qué manera has participado en el MaiFest?",
+    p1: "La participación se concentra especialmente en los bailes y en las actividades relacionadas con el Maibaum. Esto indica que los estudiantes suelen involucrarse principalmente en las partes más tradicionales y visibles del evento, mientras que actividades como apoyar stands, vender productos o colaborar con la decoración tienen mucha menos presencia.",
+    p2: "Esto muestra que la participación estudiantil está bastante enfocada en presentaciones y actividades previamente organizadas. Es decir, los alumnos participan sobre todo como parte de los números o tradiciones del evento, mientras que las tareas de apoyo y preparación parecen quedar en manos de un grupo mucho más reducido."
+  },
+  {
+    q: "10. ¿Hay alguna actividad que normalmente te interese poco o que podría hacerse más atractiva?",
+    p1: "La rifa es la actividad que aparece con mayor frecuencia entre aquellas que generan poco interés, aunque también se mencionan los coros, juegos y algunas atracciones. Esto indica que ciertas actividades pueden sentirse menos dinámicas para los estudiantes o no llamar su atención de la misma manera que otras partes del evento.",
+    p2: "Al mismo tiempo, hay varios participantes que respondieron que no cambiarían ninguna actividad. Esto muestra que no existe una insatisfacción general, sino opiniones divididas según los gustos personales. Sin embargo, las respuestas que sí señalan problemas se concentran principalmente en la variedad y el nivel de entretenimiento de algunas actividades."
+  },
+  {
+    q: "11. Antes de esta encuesta, ¿sabías que una de las finalidades principales del MaiFest es recaudar fondos?",
+    p1: "La mayoría de los estudiantes ya sabía claramente que el MaiFest tenía una finalidad de recaudación, mientras que cerca de un tercio solamente había escuchado algo. Esto indica que la idea general sí está presente entre los alumnos, pero no todos poseen el mismo nivel de conocimiento.",
+    p2: "Que todavía exista un grupo considerable que solo tiene una noción parcial muestra que la recaudación es conocida más como una característica general que como algo completamente comprendido. En otras palabras, muchos saben que se recauda dinero, pero no necesariamente manejan todos los detalles relacionados con esa finalidad."
+  },
+  {
+    q: "12. ¿Conoces qué es y qué hace la Asociación Amigos?",
+    p1: "Más de la mitad de los estudiantes respondió que conoce un poco sobre la Asociación Amigos, mientras que solo una minoría afirmó conocer bien su labor. Esto evidencia que el nombre de la Asociación tiene cierto reconocimiento, pero el conocimiento profundo sobre su función es bastante limitado.",
+    p2: "La respuesta intermedia domina claramente, lo que indica que muchos estudiantes se encuentran en un nivel de conocimiento superficial. No se puede decir que la Asociación sea desconocida, pero tampoco que exista claridad general sobre qué hace exactamente o cuál es su trabajo."
+  },
+  {
+    q: "13. ¿Consideras que durante el MaiFest se explica claramente el propósito de la recaudación?",
+    p1: "La mitad de los participantes considera que el propósito se explica solo \u201cmás o menos\u201d, mientras que otro grupo importante piensa que directamente no se explica con claridad. Solo una persona respondió que sí se comunica de manera clara.",
+    p2: "Esto refleja una percepción bastante marcada de falta de claridad. Las respuestas no muestran necesariamente que la información sea inexistente, sino que no parece presentarse de una manera suficientemente clara o memorable para la mayoría de los estudiantes."
+  },
+  {
+    q: "14. ¿De qué manera estarías más dispuesto a apoyar?",
+    p1: "La opción claramente preferida es comprar comida o productos, elegida por casi todos los participantes. Otras formas como comprar números de la rifa, participar en actividades o ayudar como voluntario también generan cierto interés, pero en una proporción mucho menor.",
+    p2: "Esto muestra que los estudiantes prefieren apoyar mediante una acción que también implique participación o recibir algo a cambio. La donación directa es una de las opciones menos elegidas, lo que sugiere que para este grupo resulta más natural colaborar a través de actividades que ya forman parte de la experiencia del evento."
+  },
+  {
+    q: "15. ¿Cómo te enteras normalmente de las actividades del MaiFest?",
+    p1: "Los compañeros aparecen como una de las principales fuentes de información, junto con el correo institucional y los maestros. Esto muestra que la información circula tanto por canales formales como mediante conversaciones entre los propios estudiantes.",
+    p2: "La presencia muy baja de redes sociales indica que este medio tiene poca influencia en la manera en que actualmente se enteran de las actividades. En cambio, el boca a boca dentro del colegio parece tener bastante importancia, lo que refleja una comunicación principalmente interna y cercana."
+  },
+  {
+    q: "16. ¿Qué información te interesaría recibir antes del MaiFest?",
+    p1: "Los estudiantes muestran un interés claro por información práctica, especialmente actividades, horarios y comida disponible. Esto indica que antes del evento quieren saber qué podrán hacer, cuándo ocurrirá cada cosa y qué opciones tendrán durante la jornada.",
+    p2: "También existe interés por conocer los premios de la rifa, los beneficiarios de la recaudación y la Asociación Amigos. Esto muestra que la curiosidad no se limita únicamente al entretenimiento, aunque los temas relacionados con la experiencia del día siguen siendo los que generan mayor atención."
+  },
+  {
+    q: "17. ¿Qué tipo de contenido llamaría más tu atención?",
+    p1: "Las fotografías de años anteriores y los videos cortos son los formatos que generan mayor interés. Esto muestra una preferencia por contenidos visuales, rápidos y fáciles de relacionar con experiencias conocidas.",
+    p2: "También llaman la atención las entrevistas con exalumnos y las historias de estudiantes, lo que refleja interés por contenido con un componente humano. Los participantes parecen sentirse más atraídos por publicaciones que muestran personas, recuerdos y experiencias reales que por información demasiado general."
+  },
+  {
+    q: "18. Opinión: si pudiera mejorar una sola cosa del MaiFest, ¿qué cambiaría?",
+    p1: "Las respuestas se concentran principalmente en el espacio, la distribución, las filas y la cantidad de actividades. Esto muestra que varios estudiantes perciben problemas relacionados con la comodidad y el movimiento dentro del evento, más que con un solo elemento específico.",
+    p2: "También aparece con frecuencia la necesidad de tener mayor variedad de actividades y una organización más clara. En general, las respuestas reflejan que las principales molestias surgen cuando la experiencia se siente demasiado apretada, repetitiva o desordenada."
+  },
+  {
+    q: "19. ¿Qué palabra describe mejor al MaiFest?",
+    p1: "La palabra tradición es la que más se repite, aunque también aparecen conceptos como diversión, comida, compañía y festividad. Esto muestra que los estudiantes reconocen al MaiFest principalmente por su carácter tradicional, pero al mismo tiempo lo relacionan con experiencias sociales y recreativas.",
+    p2: "La variedad de palabras indica que cada estudiante destaca una parte distinta del evento, pero se mantiene una idea común: el MaiFest es visto como una celebración reconocible dentro del colegio, donde se mezclan tradición, convivencia y entretenimiento."
+  }
+];
+
+function resultadosHtml(){
+  let html = `<p class="intro-text">Encuesta de alumnos (22 respuestas)</p>`;
+  encuestaPreguntas.forEach((item, i) => {
+    html += `<div class="survey-block">`;
+    html += `<p class="survey-q">${item.q}</p>`;
+    html += `<img class="survey-img" src="encuestaa${i + 1}.jpg" alt="Resultado ${item.q}">`;
+    html += `<p class="research-p">${item.p1}</p>`;
+    html += `<p class="research-p">${item.p2}</p>`;
+    html += `</div>`;
+  });
+  return html;
+}
+
+/* ---------- encuesta de padres (7 respuestas) ---------- */
+const encuestaPadresPreguntas = [
+  {
+    q: "1. Años asistiendo al Mai Fest",
+    p1: "Seis de los siete padres encuestados indicaron que llevan más de seis años asistiendo al Mai Fest, mientras que solamente uno tiene entre dos y tres años de experiencia con el evento. Esto muestra que la muestra está formada principalmente por familias que conocen bien la actividad y que han tenido contacto con ella durante varios años.",
+    p2: "La permanencia de estas familias también refleja una relación constante con el Mai Fest. No se trata, en su mayoría, de asistentes recientes, sino de padres que han acompañado distintas ediciones y que reconocen el evento como parte habitual de su experiencia dentro de la comunidad del Instituto Austriaco."
+  },
+  {
+    q: "2. Valoración e importancia del Mai Fest",
+    p1: "La valoración del Mai Fest es bastante alta entre los padres. Cinco de los siete participantes le dieron una calificación de 5 y otro lo calificó con 4, mientras que solamente una persona le otorgó una valoración de 2. Esto evidencia que, para la mayoría, el evento tiene una importancia considerable dentro de la comunidad.",
+    p2: "La concentración de respuestas en los valores más altos demuestra que el Mai Fest no es percibido simplemente como una actividad recreativa más. Para la gran mayoría de los padres encuestados tiene un peso relevante dentro de la vida del Instituto, aunque existe una opinión aislada que refleja una relación mucho menos fuerte con el evento."
+  },
+  {
+    q: "3. Aspectos que más disfrutan del evento",
+    p1: "La gastronomía típica y la convivencia con otras familias son los aspectos que aparecen con mayor frecuencia. La convivencia fue mencionada por todos los participantes, mientras que la comida típica también destaca ampliamente. Otros elementos, como el ambiente, los bailes, la música, las actividades infantiles y la rifa, tienen presencia, pero en menor medida.",
+    p2: "Esto muestra que los padres disfrutan principalmente del Mai Fest como un espacio de encuentro social. Aunque valoran las actividades y tradiciones presentes, compartir con otras familias parece ser uno de los principales motivos por los que disfrutan el evento. La comida también cumple un papel importante porque forma parte de esa experiencia de convivencia y refuerza el ambiente festivo."
+  },
+  {
+    q: "4. Qué representa la esencia del Mai Fest",
+    p1: "La mezcla de culturas fue la respuesta más frecuente, mencionada por cuatro de los siete participantes. También aparecen la tradición austríaca, la gastronomía y la convivencia familiar como aspectos que representan la esencia del evento.",
+    p2: "La preferencia por la mezcla cultural muestra que muchos padres no perciben el Mai Fest únicamente como una celebración austríaca, sino como un espacio donde se combinan diferentes elementos culturales. Esto le da al evento una identidad particular, ya que su esencia parece encontrarse tanto en conservar las tradiciones como en la manera en que estas conviven con la comunidad local."
+  },
+  {
+    q: "5. Facilidad para orientarse dentro del evento",
+    p1: "Las opiniones sobre la orientación dentro del evento están divididas. Tres personas consideran que ubicarse es muy fácil, una lo califica como fácil, dos lo perciben como regular y una persona considera que es difícil.",
+    p2: "Esto indica que para la mayoría desplazarse dentro del Mai Fest no representa un problema grave, pero la experiencia no es igual para todos. Existe un grupo considerable que no encuentra la distribución completamente clara, lo que refleja que la facilidad para orientarse puede depender de la familiaridad de cada persona con el espacio o de cómo estén organizadas las diferentes áreas."
+  },
+  {
+    q: "6. Dificultades para encontrar áreas del evento",
+    p1: "La mayoría de los padres indicó no haber tenido dificultades para encontrar las distintas áreas del evento. Solo dos personas mencionaron problemas específicos: una para encontrar los baños y otra para localizar el punto de información.",
+    p2: "Esto muestra que, en general, las áreas principales parecen ser accesibles y reconocibles para los asistentes. Sin embargo, los pocos problemas mencionados se relacionan precisamente con servicios que cumplen una función práctica durante el evento, por lo que su ubicación puede resultar menos evidente que la de espacios más visibles o concurridos."
+  },
+  {
+    q: "7. Percepción de la información previa al evento",
+    p1: "Las respuestas están bastante divididas. Tres de los siete padres calificaron la información previa con la puntuación mínima de 1, mientras que dos la valoraron con 5 y otros dos con 4. Esto refleja una percepción muy desigual sobre la eficiencia de la comunicación antes del Mai Fest.",
+    p2: "La diferencia entre opiniones tan altas y tan bajas sugiere que la información no llega de la misma manera a todas las familias. Para algunos padres parece ser suficiente y clara, mientras que para otros resulta poco efectiva. No existe una percepción intermedia dominante, sino dos experiencias bastante distintas entre quienes se sienten bien informados y quienes consideran que la información previa es deficiente."
+  },
+  {
+    q: "8. Información que les gustaría recibir",
+    p1: "El programa de actividades es la información más solicitada por los padres, apareciendo en cinco de las siete respuestas. También se mencionan horarios, menú de comida, mapa del evento, forma de pago, información sobre la Asociación Amigos y premios de la rifa.",
+    p2: "Esto demuestra que los padres buscan principalmente información que les permita organizar mejor su asistencia. Saber qué actividades habrá, cuándo ocurrirán, dónde se encuentran y cómo realizar pagos son datos que afectan directamente la manera en que viven el evento. Las respuestas muestran un interés por llegar al Mai Fest con una idea más clara de lo que podrán encontrar durante el día."
+  },
+  {
+    q: "9. Cómo obtienen información durante el evento",
+    p1: "La mayoría de los padres recurre principalmente a amigos o familiares para obtener información durante el evento. Cinco de los siete participantes eligieron esta opción, mientras que solamente una persona mencionó redes sociales y otra WhatsApp.",
+    p2: "Esto muestra que durante el Mai Fest predomina una comunicación personal y directa. En lugar de depender principalmente de canales digitales o informativos, los asistentes suelen resolver sus dudas preguntando a personas cercanas. La interacción entre familias tiene, por lo tanto, un papel importante también en la manera en que circula la información durante el evento."
+  },
+  {
+    q: "10. Conocimiento de la Asociación Amigos",
+    p1: "Cuatro de los siete padres indicaron conocer la labor de la Asociación Amigos, mientras que dos señalaron conocerla solamente un poco y una persona afirmó no conocerla. Esto demuestra que existe un nivel de conocimiento relativamente alto, aunque no es completamente uniforme.",
+    p2: "La mayoría reconoce a la Asociación y sabe qué hace, pero todavía existe un grupo que tiene un conocimiento parcial o inexistente. Esto indica que la Asociación tiene presencia entre las familias, aunque su labor no resulta igual de clara para todos los asistentes."
+  },
+  {
+    q: "11. Conocimiento del destino de los fondos recaudados",
+    p1: "Las respuestas presentan prácticamente el mismo patrón que en el conocimiento sobre la Asociación Amigos: cuatro padres saben a qué se destinan los fondos, dos lo conocen solo parcialmente y uno no lo sabe.",
+    p2: "Esto muestra que para la mayoría existe cierta claridad sobre el destino de la recaudación, pero no puede considerarse un conocimiento general entre todos los participantes. Una parte de las familias tiene únicamente una idea aproximada, lo que refleja distintos niveles de información sobre el propósito económico del evento."
+  },
+  {
+    q: "12. Frecuencia de participación en la rifa",
+    p1: "La participación en la rifa es bastante frecuente entre los padres encuestados. Cuatro personas indicaron participar siempre, mientras que una participa algunas veces, otra rara vez y una nunca.",
+    p2: "Esto refleja que la rifa tiene una participación estable dentro de buena parte del grupo. Para más de la mitad parece formar parte habitual de su experiencia en el Mai Fest, aunque existe un pequeño grupo que participa de manera ocasional o no lo hace. Por lo tanto, el interés por esta actividad no es igual entre todas las familias."
+  },
+  {
+    q: "13. Qué motivaría mayor participación en la rifa",
+    p1: "Existe una respuesta muy clara: seis de los siete participantes indicaron que les motivaría conocer mejor la causa, mientras que solamente una persona mencionó que preferiría un proceso de compra más sencillo.",
+    p2: "Esto muestra que la motivación para participar en la rifa está relacionada principalmente con comprender por qué se está colaborando. Para los padres, conocer mejor el propósito de la recaudación parece tener más peso que aspectos como premios o facilidades de compra. La causa detrás de la rifa influye directamente en el interés que sienten por participar."
+  },
+  {
+    q: "14. Qué mejorarían del evento",
+    p1: "Las respuestas son variadas y no existe un solo problema que domine claramente. Algunos padres piden más actividades y presentaciones, mientras que otros mencionan aspectos relacionados con comodidad, como contar con más mesas. También aparecen observaciones sobre el sistema de pago, la disponibilidad de comida desde el inicio y la actitud del personal.",
+    p2: "Esto muestra que las mejoras señaladas se concentran principalmente en dos áreas: la experiencia del evento y su funcionamiento práctico. Algunos quieren mayor variedad de cosas por hacer, mientras que otros buscan que aspectos cotidianos como pagar, sentarse o comprar alimentos resulten más cómodos. Las respuestas reflejan necesidades distintas dependiendo de cómo cada familia vive el Mai Fest."
+  },
+  {
+    q: "15. Palabra que describe mejor al Mai Fest",
+    p1: "Las palabras utilizadas son bastante variadas: convivencia, diversión, amigos, familia, alegría y fiesta austríaca aparecen entre las respuestas. A diferencia de otras preguntas, aquí no existe una palabra que domine claramente sobre las demás.",
+    p2: "Sin embargo, la mayoría de los términos tiene una carga social y positiva. Los padres describen el Mai Fest principalmente desde las relaciones personales y el ambiente agradable que encuentran durante el evento. Más que definirlo únicamente por una actividad específica, lo relacionan con compartir, estar en familia y disfrutar de una celebración."
+  }
+];
+
+function resultadosPadresHtml(){
+  let html = `<p class="intro-text">Encuesta de padres (7 respuestas)</p>`;
+  encuestaPadresPreguntas.forEach((item, i) => {
+    html += `<div class="survey-block">`;
+    html += `<p class="survey-q">${item.q}</p>`;
+    html += `<p class="research-p">${item.p1}</p>`;
+    html += `<p class="research-p">${item.p2}</p>`;
+    html += `<img class="survey-img" src="encuestap${i + 1}.jpg" alt="Resultado ${item.q}">`;
+    html += `</div>`;
+  });
+  return html;
+}
+
+const rutaHtml = `
+<ul class="a-list"><li>1. Selección del grupo objetivo.</li><li>2. Contacto.</li><li>3. Aplicación del instrumento.</li><li>4. Registro de información.</li><li>5. Análisis.</li></ul>
+`;
+
+/* ---------- CLIENTE: contenido mapeado ---------- */
+const clienteGeneralidadesHtml = `
+<h3 class="mini-head">1.1. Nombre de la institución</h3>
+<p class="research-p">El nombre oficial es Instituto Austriaco Guatemalteco (IAG). Es una institución educativa bicultural perteneciente a la Fundación Cultural Austriaco Guatemalteca, ubicada en el Boulevard Austriaco 23-90, zona 16 de la Ciudad de Guatemala. Atiende los niveles de preprimaria, primaria, básicos y diversificado en la carrera de Bachillerato en Ciencias y Letras.</p>
+<h3 class="mini-head">1.2. Historia</h3>
+<p class="research-p">El Instituto Austriaco Guatemalteco inició sus actividades el 6 de enero de 1958, cuando su fundador, el Dr. Harald König, realizó las primeras inscripciones con el apoyo de su esposa, Maria Elisabeth Dorn. Su primera sede se encontraba en la zona 1 de la Ciudad de Guatemala, pero el crecimiento del colegio provocó varios traslados durante sus primeros años.</p>
+<p class="research-p">En 1959, la primaria obtuvo reconocimiento legal y comenzó a recibir apoyo de Austria mediante material didáctico. A partir de 1965 llegaron los primeros docentes subvencionados por el gobierno austriaco. En 1966, la República de Austria adquirió las instalaciones educativas y, posteriormente, se construyó una nueva sede en la zona 16, inaugurada en 1968.</p>
+<p class="research-p">En 1980 se constituyó la Fundación Cultural Austriaco Guatemalteca, que desde entonces es propietaria del colegio. A lo largo de su historia, la institución ha ampliado sus instalaciones, programas académicos, actividades culturales y proyectos científicos, artísticos, deportivos y sociales.</p>
+<p class="research-p">El colegio celebró su 50 aniversario en 2008 con la participación de autoridades de Guatemala y Austria. Su trayectoria ha sido reconocida mediante condecoraciones como la Orden del Quetzal, la Orden del Soberano Congreso Nacional y la Orden José Rolz Bennett.</p>
+<h3 class="mini-head">1.3. Actividades que realiza</h3>
+<p class="research-p">La actividad principal del Instituto Austriaco Guatemalteco es la formación académica integral de niños y jóvenes. Su propuesta educativa combina contenidos de los sistemas educativos de Guatemala y Austria, con una orientación científica y enseñanza en español, alemán e inglés.</p>
+<p class="research-p">Además de las clases regulares, realiza actividades en distintas áreas:</p>
+<ul class="a-list"><li>Académicas y científicas: ferias científicas, experimentos, investigaciones, exposiciones y proyectos interdisciplinarios.</li><li>Artísticas: música, coro, orquesta, expresión artística y presentaciones culturales.</li><li>Deportivas: fútbol, baloncesto, voleibol, béisbol, atletismo y natación.</li><li>Culturales: celebración del Día Nacional de Austria, MaiFest, búsqueda del Maibaum, actividades cívicas y encuentros interculturales.</li><li>Sociales y solidarias: proyectos de apoyo a escuelas y comunidades, algunos desarrollados con la participación de la Asociación Amigos.</li><li>Extraaula: visitas a museos, centros culturales, instituciones y otros espacios relacionados con el aprendizaje.</li></ul>
+<p class="research-p">La galería institucional registra actividades como la búsqueda del Maibaum, la Fiesta de Mayo, veladas musicales, ferias científicas, actos cívicos, actividades deportivas y entregas de apoyo realizadas por Amigos.</p>
+<h3 class="mini-head">1.4. Relación con Austria</h3>
+<p class="research-p">La relación con Austria es uno de los elementos centrales de la institución. El Instituto recibe el respaldo del Gobierno de Austria y su Director General es nombrado por el Ministerio de Educación, Ciencias e Investigación de la República de Austria. Asimismo, parte del personal docente austriaco es subvencionado por dicho ministerio.</p>
+<p class="research-p">El colegio combina los sistemas educativos de Guatemala y Austria y ofrece la posibilidad de obtener la Matura Austriaca, certificación que permite acceder a universidades públicas europeas conforme a los requisitos correspondientes. También promueve el aprendizaje del alemán, los viajes estudiantiles a Austria, las tradiciones austriacas y la cooperación con instituciones educativas europeas.</p>
+<p class="research-p">Esta relación no se limita a lo académico. Se manifiesta también en celebraciones como el MaiFest, los bailes tradicionales, la gastronomía, la música, los trajes y otras actividades que permiten que la comunidad conozca y experimente la cultura austriaca desde Guatemala.</p>
+<h3 class="mini-head">1.5. Misión y visión</h3>
+<p class="research-p"><strong>Misión:</strong> "Somos una institución educativa bicultural trilingüe (español, alemán, inglés) dedicada a brindar, en un entorno de convivencia armónica de las culturas guatemalteca y austriaca, una excelente formación humanística y científica, de tal manera que nuestros egresados trasciendan en universidades nacionales e internacionales y se conviertan en factores significativos del desarrollo social."</p>
+<p class="research-p"><strong>Visión:</strong> "Ser la institución educativa bicultural trilingüe (español, alemán, inglés) de excelencia que provea a los alumnos de los Niveles de Preprimaria, Primaria y Medio una formación académica que responda a los requerimientos nacionales e internacionales, contribuyendo activamente al desarrollo y respeto de la diversidad social, política, religiosa y cultural."</p>
+<h3 class="mini-head">1.6. Canales de comunicación</h3>
+<ul class="a-list"><li>Sitio web institucional, donde publica información académica, proyectos, noticias, calendarios, servicios y materiales.</li><li>Portal para padres FACTS, utilizado para información y gestiones internas.</li><li>Correo electrónico institucional.</li><li>Comunicación directa con docentes y horarios de consulta.</li><li>Circulares y avisos dirigidos a padres de familia.</li><li>Facebook e Instagram.</li><li>Teléfono institucional.</li><li>Formularios y página de contacto.</li><li>Carteles, señalización y materiales colocados dentro del colegio.</li><li>Comunicación presencial por medio de maestros, coordinadores y personal administrativo.</li></ul>
+<p class="research-p">Datos generales de contacto publicados: correo general instituto@austriaco.edu.gt, teléfono +502 2309 1900, horario de atención de lunes a viernes de 7:00 a 15:30 horas.</p>
+`;
+const clienteAmigosHtml = `<ul class="a-list"><li>Historia y origen.</li><li>Misión y propósito.</li><li>Proyectos que desarrolla.</li><li>Escuelas y comunidades beneficiadas.</li><li>Fuentes de financiamiento.</li><li>Papel dentro del MaiFest.</li><li>Relación con donantes y empresas.</li><li>Nivel de reconocimiento dentro de la comunidad.</li></ul>`;
+const clienteAntecedentesHtml = `<ul class="a-list"><li>Identidad visual actual.</li><li>Logotipo y significado.</li><li>Publicaciones anteriores.</li><li>Invitaciones y circulares.</li><li>Materiales de la rifa.</li><li>Señalización y mapas anteriores.</li><li>Aplicación de pago.</li><li>Fortalezas y debilidades de las piezas.</li></ul>`;
+const clienteCompetenciaHtml = `
+<h3 class="mini-head">4.1. Otros festivales culturales escolares</h3>
+<p class="research-p">Los festivales culturales escolares funcionan como espacios de convivencia y aprendizaje en los que las instituciones trasladan parte de su formación académica y cultural hacia experiencias colectivas. En Guatemala, las temporadas y actividades escolares promovidas en espacios culturales incluyen presentaciones artísticas, musicales y escénicas, en las que la planificación de fechas, horarios, participantes y requerimientos forma parte importante de la organización del evento (Ministerio de Cultura y Deportes de Guatemala, 2025).</p>
+<p class="research-p">Este tipo de festivales tiene como característica principal la participación activa de los estudiantes, quienes dejan de ser únicamente espectadores y se convierten en parte de la experiencia mediante presentaciones, actividades artísticas y manifestaciones culturales. A su vez, estas actividades generan oportunidades de convivencia entre estudiantes, docentes y familias.</p>
+<p class="research-p">Dentro del Instituto Austriaco Guatemalteco, este modelo adquiere un componente adicional debido a su carácter bicultural. Las actividades desarrolladas por la institución buscan mantener un vínculo entre Guatemala y Austria, por lo que el MaiFest se diferencia de un festival escolar convencional al incorporar tradiciones, gastronomía, bailes y elementos culturales austriacos dentro de una actividad comunitaria (Instituto Austriaco Guatemalteco, s. f.).</p>
+<p class="research-p">Por ello, los festivales escolares constituyen un referente principalmente en cuanto a la participación estudiantil, integración familiar, programación cultural y creación de experiencias colectivas.</p>
+<h3 class="mini-head">4.2. Festivales austriacos realizados en Guatemala</h3>
+<p class="research-p">La presencia de Austria en Guatemala se ha desarrollado principalmente a través del intercambio educativo y cultural. Uno de los principales promotores de esta relación ha sido el Instituto Austriaco Guatemalteco, fundado en 1958 y vinculado desde sus inicios con instituciones austriacas. Este intercambio ha permitido que diversas manifestaciones culturales de Austria se mantengan presentes dentro de la comunidad educativa guatemalteca (Cetino, 2024).</p>
+<p class="research-p">El MaiFest constituye una de estas manifestaciones, debido a que adapta a un contexto escolar guatemalteco elementos tradicionales relacionados con el mes de mayo y la cultura austriaca. Su carácter cultural se refleja en los bailes folclóricos, la gastronomía, los trajes tradicionales y principalmente en el Maibaum, alrededor del cual se desarrolla parte importante de la celebración.</p>
+<p class="research-p">La cultura austriaca también ha estado presente en otros espacios culturales guatemaltecos. Un ejemplo es la participación de Austria dentro del Festival Eurocine de Guatemala, evento orientado a acercar producciones y expresiones culturales europeas al público guatemalteco (Festival Eurocine de Guatemala, s. f.). Aunque se trata de una experiencia distinta al MaiFest, ambos casos comparten el objetivo de acercar elementos de la cultura austriaca a una audiencia guatemalteca.</p>
+<h3 class="mini-head">4.3. Asociaciones que recaudan fondos mediante eventos</h3>
+<p class="research-p">La Asociación Alemana de Beneficencia Guatemala representa un referente cercano por combinar una herencia cultural europea con un propósito social desarrollado en Guatemala. La organización fue fundada en 1868 y actualmente centra su labor en mejorar la calidad de vida de adultos mayores alemanes mediante asistencia económica, material, emocional y médica. Para financiar sus actividades organiza bazares navideños, bingos, conciertos, campañas y otros eventos benéficos (Asociación Alemana de Beneficencia Guatemala, s. f.).</p>
+<p class="research-p">Su modelo resulta relevante porque integra la recaudación dentro de experiencias sociales en las que las personas pueden colaborar de diferentes maneras. La organización no limita la participación a una donación monetaria, sino que también promueve el voluntariado, la participación en eventos, las campañas y la difusión de su labor. De esta manera, el evento funciona tanto para recaudar como para mantener activa a la comunidad alrededor de una causa.</p>
+<p class="research-p">Otro referente es Fundecán, organización guatemalteca que desarrolla actividades de recaudación vinculadas con su labor de apoyo contra el cáncer. La realización de eventos permite involucrar a empresas, patrocinadores y participantes en experiencias que, además de generar fondos, aumentan la visibilidad de la causa (Fundecán, 2026).</p>
+<p class="research-p">La Asociación de Amigos Guatemaltecos y Austriacos para Guatemala se ubica dentro de este mismo ámbito de organizaciones vinculadas con la cooperación y la conexión entre ambas culturas (Asociación de Amigos Guatemaltecos y Austriacos para Guatemala, s. f.). En el contexto del MaiFest, la Asociación Amigos tiene la oportunidad de fortalecer su presencia para que la comunidad no relacione únicamente el festival con las actividades culturales, sino también con el apoyo social que se genera mediante la recaudación.</p>
+<h3 class="mini-head">4.4. Estrategias de rifas y donaciones</h3>
+<p class="research-p">Las rifas constituyen una estrategia de recaudación que combina el aporte económico con un incentivo para participar. Su efectividad depende de factores como el atractivo de los premios, la facilidad para adquirir números, la comunicación previa y la relación que el participante establece con la causa.</p>
+<p class="research-p">Bonterra plantea distintas categorías de premios que pueden utilizarse para aumentar el atractivo de una rifa, entre ellas experiencias, tarjetas de regalo, productos tecnológicos, artículos para el hogar y premios temáticos. La selección debe responder a las características e intereses de la audiencia, ya que un premio valioso no necesariamente resulta relevante para todos los públicos (Bonterra, s. f.).</p>
+<p class="research-p">Además de la rifa, las organizaciones pueden diversificar sus métodos de recaudación mediante eventos comunitarios, patrocinios empresariales, venta de productos, campañas entre miembros de la comunidad y actividades de recaudación entre pares. En instituciones educativas también pueden establecerse diferentes niveles de patrocinio para permitir que empresas y miembros de la comunidad participen según sus posibilidades (Kindsight, 2026).</p>
+<p class="research-p">Una estrategia particularmente relevante es la recaudación entre pares o peer-to-peer fundraising, en la cual los propios miembros de una comunidad ayudan a difundir una causa y captar aportes dentro de sus redes personales. Este modelo puede fortalecer tanto la recaudación como el sentido de participación, debido a que convierte a los colaboradores en promotores activos de la organización (Kindsight, 2026).</p>
+<p class="research-p">Sin embargo, el incentivo económico o material no es suficiente por sí mismo. La confianza representa un elemento fundamental en la disposición de las personas para aportar. Lee (2026) plantea que la recaudación efectiva no comienza únicamente cuando se solicita una donación, sino en la credibilidad que la organización ha construido previamente. Explicar el impacto de los fondos, mostrar resultados y mantener una relación transparente con los donantes contribuye a fortalecer esta confianza.</p>
+<h3 class="mini-head">4.5. Identidades visuales de festivales tradicionales</h3>
+<p class="research-p">La identidad visual del Oktoberfest constituye un referente relevante para estudiar la manera en que una celebración tradicional puede mantener sus elementos históricos mientras actualiza su lenguaje gráfico.</p>
+<p class="research-p">Para la edición 2026, el motivo oficial del Oktoberfest fue desarrollado por el diseñador Florian Huber. La propuesta integra elementos reconocibles de la celebración, como el pretzel, la tuba, la rueda de la fortuna, el corazón de jengibre y referencias arquitectónicas de Múnich. Estos elementos tradicionales fueron representados mediante una composición contemporánea caracterizada por el movimiento, el uso expresivo del color y una sensación de convivencia (Oktoberfest.de, 2026).</p>
+<p class="research-p">Uno de los aspectos relevantes de este sistema es que la actualización visual no implica eliminar los símbolos históricos. La tradición constituye la materia prima del diseño y posteriormente se reinterpreta a través de estilos gráficos contemporáneos. Esta estrategia permite conservar el reconocimiento cultural del festival mientras se renueva su comunicación.</p>
+<p class="research-p">La identidad también está pensada como un sistema adaptable. El motivo seleccionado se utiliza tanto en medios digitales y redes sociales como en carteles, productos oficiales y artículos de colección. Esto permite que una misma identidad mantenga coherencia en múltiples puntos de contacto con el público (Oktoberfest.de, 2026).</p>
+<p class="research-p">Asimismo, la elección anual del motivo involucra al público y posteriormente a un jurado especializado. En 2026 se presentaron 129 propuestas, de las cuales 89 fueron aceptadas para votación pública; posteriormente, las 30 mejor posicionadas fueron evaluadas para seleccionar la imagen oficial (Oktoberfest.de, 2026).</p>
+<h3 class="mini-head">4.6. Buenas prácticas de comunicación y organización</h3>
+<p class="research-p">La comunicación de un evento requiere organizar la información de forma que los diferentes públicos comprendan qué ocurrirá, cómo pueden participar y cuál es el propósito de la actividad. Dentro de este proceso, la claridad de los mensajes y la coherencia entre los distintos canales ayudan a reducir confusiones y facilitan la participación del público.</p>
+<p class="research-p">En eventos culturales y escolares, la planificación previa de la programación permite organizar actividades, participantes, horarios y espacios de forma coherente. Esta estructura posteriormente debe trasladarse a la comunicación dirigida al público, especialmente cuando el evento incluye diferentes actividades simultáneas (Ministerio de Cultura y Deportes de Guatemala, 2025).</p>
+<p class="research-p">La comunicación también debe adaptarse a las características de cada audiencia. Los mensajes dirigidos a estudiantes no necesariamente deben utilizar los mismos contenidos o medios que aquellos dirigidos a padres de familia, patrocinadores o exalumnos. Una comunicación organizacional efectiva requiere identificar los públicos, seleccionar los canales adecuados y construir mensajes comprensibles según sus necesidades (Edutin Academy, s. f.).</p>
+<p class="research-p">En el ámbito de la recaudación, una buena práctica consiste en vincular de forma constante el evento con su propósito. Las organizaciones fortalecen la confianza cuando explican qué problema atienden, qué acciones desarrollan y cuál es el impacto de los aportes recibidos (Lee, 2026). En este sentido, la comunicación no debería finalizar al terminar el evento, sino continuar mostrando resultados y manteniendo el vínculo con los participantes.</p>
+<p class="research-p">También resulta importante ofrecer diferentes formas de participación. Las estrategias de recaudación comunitaria pueden integrar patrocinadores, actividades presenciales, rifas, venta de productos y participación directa de los propios miembros de la comunidad. Esta diversidad amplía las posibilidades de colaboración y permite que distintos perfiles encuentren una forma adecuada de involucrarse (Kindsight, 2026).</p>
+<p class="research-p">Finalmente, la coherencia visual contribuye al reconocimiento del evento. El caso del Oktoberfest demuestra que un mismo sistema gráfico puede trasladarse entre soportes físicos y digitales sin perder su identidad, utilizando elementos culturales constantes y adaptándolos según las necesidades de cada pieza (Oktoberfest.de, 2026).</p>
+`;
+
+/* ---------- TEMA: contenido mapeado ---------- */
+const temaGeneralidadesHtml = `
+<h3 class="mini-head">1.1. Cultura austriaca</h3>
+<p class="research-p">Austria es un país con una gran riqueza cultural, resultado de siglos de historia y de la influencia de diferentes pueblos de Europa Central. Aunque actualmente es una nación moderna, conserva numerosas tradiciones que siguen formando parte de la vida cotidiana, especialmente en las comunidades rurales. La música, la arquitectura, la gastronomía y las festividades populares son algunos de los elementos que mejor representan la identidad cultural austriaca.</p>
+<p class="research-p">Las celebraciones tradicionales tienen un papel importante porque permiten mantener vivas las costumbres heredadas de generaciones anteriores. Muchas de ellas están relacionadas con el cambio de las estaciones, la naturaleza y las antiguas actividades agrícolas, reflejando la estrecha relación que históricamente ha existido entre la población y su entorno.</p>
+<h3 class="mini-head">1.2. Festividades de primavera en Austria</h3>
+<p class="research-p">La llegada de la primavera es una de las épocas más esperadas del año en Austria. Después del invierno, las comunidades celebran el renacimiento de la naturaleza mediante distintas festividades que reúnen a familias, vecinos y visitantes.</p>
+<p class="research-p">Entre todas estas celebraciones, la más representativa es la Fiesta de Mayo o Maifest, que se lleva a cabo alrededor del 1 de mayo. Durante esta festividad se organizan actividades culturales, presentaciones musicales, bailes tradicionales, ferias gastronómicas y ceremonias relacionadas con el Maibaum, conocido como el árbol de mayo. Estas celebraciones simbolizan la renovación, la fertilidad, la prosperidad y el fortalecimiento de los lazos comunitarios.</p>
+<h3 class="mini-head">1.3. Concepto de MaiFest</h3>
+<p class="research-p">El Maifest es una celebración tradicional dedicada a dar la bienvenida a la primavera. Generalmente se realiza el 1 de mayo, aunque en muchas localidades las actividades comienzan desde la noche anterior.</p>
+<p class="research-p">Durante esta festividad, los habitantes del pueblo participan en diversas actividades organizadas por asociaciones culturales, grupos folclóricos y autoridades locales. La música en vivo, los bailes típicos, la gastronomía regional y el levantamiento del Maibaum son algunas de las principales atracciones. Más que una simple fiesta, el Maifest representa una oportunidad para fortalecer la convivencia y preservar las tradiciones que forman parte de la identidad cultural de Austria.</p>
+<h3 class="mini-head">1.4. Concepto de Maibaum</h3>
+<p class="research-p">El Maibaum, o árbol de mayo, es uno de los símbolos más importantes de esta festividad. Consiste en un tronco alto, generalmente de abeto o pino, al que se le retira casi toda la corteza, dejando únicamente la copa verde.</p>
+<p class="research-p">Una vez preparado, el árbol se adorna con cintas de colores, coronas elaboradas con ramas, escudos del municipio y diferentes elementos decorativos que representan la historia y las actividades tradicionales de cada comunidad. Finalmente, el árbol es levantado en la plaza principal, convirtiéndose en el centro de toda la celebración.</p>
+<p class="research-p">El Maibaum simboliza la vida, el crecimiento, la prosperidad y la esperanza de un nuevo ciclo para la comunidad.</p>
+<h3 class="mini-head">1.5. Importancia cultural y comunitaria</h3>
+<p class="research-p">El Maifest tiene un importante valor social porque promueve la participación de toda la comunidad. La preparación de la festividad requiere el trabajo conjunto de vecinos, jóvenes, adultos, músicos, artesanos y autoridades locales, quienes colaboran para organizar cada detalle del evento.</p>
+<p class="research-p">Gracias a esta participación colectiva, las nuevas generaciones aprenden costumbres que han permanecido vivas durante siglos. Además, estas celebraciones fortalecen el sentido de pertenencia, fomentan el turismo local y ayudan a conservar el patrimonio cultural de Austria.</p>
+`;
+
+const maifestHistoriaHtml = `
+<h3 class="mini-head">2.1. Origen de la tradición</h3>
+<p class="research-p">El origen del Maifest se remonta a antiguas celebraciones europeas relacionadas con la llegada de la primavera y el renacimiento de la naturaleza. Con el paso del tiempo, estas festividades fueron adaptándose a las costumbres de cada región hasta convertirse en una tradición muy importante en Austria.</p>
+<p class="research-p">Existen registros históricos que mencionan la presencia del Maibaum desde la Edad Media, aunque muchos historiadores consideran que la costumbre tiene raíces aún más antiguas. A lo largo de los siglos, la celebración incorporó elementos religiosos y culturales propios de cada localidad, manteniendo siempre su significado como símbolo de renovación y prosperidad.</p>
+<h3 class="mini-head">2.2. Búsqueda y plantación del árbol</h3>
+<p class="research-p">La preparación del Maibaum comienza varios días antes de la celebración. Un grupo de habitantes selecciona cuidadosamente un árbol alto, recto y saludable en los bosques cercanos. Después de cortarlo, el tronco es transportado hasta el pueblo, donde se limpia y se retira la mayor parte de su corteza.</p>
+<p class="research-p">El momento más importante es el levantamiento del árbol. Tradicionalmente esta tarea se realizaba únicamente con cuerdas y largos postes de madera, por lo que era necesario el esfuerzo coordinado de muchas personas. En algunas comunidades esta técnica todavía se conserva como parte de la tradición, mientras que en otras se utilizan grúas por razones de seguridad.</p>
+<h3 class="mini-head">2.3. Decoración del Maibaum</h3>
+<p class="research-p">Una vez preparado el tronco, comienza el proceso de decoración. Cada pueblo utiliza diferentes elementos según sus propias tradiciones, aunque normalmente se emplean cintas de colores, coronas de ramas verdes, flores naturales, escudos municipales y figuras que representan oficios tradicionales como la carpintería, la agricultura o la herrería.</p>
+<p class="research-p">Esta decoración convierte al Maibaum en una representación de la identidad de la comunidad, ya que refleja su historia, sus costumbres y el trabajo de sus habitantes.</p>
+<h3 class="mini-head">2.4. Folkstanz y bailes tradicionales</h3>
+<p class="research-p">Los bailes folclóricos forman parte esencial del Maifest. Estas danzas, conocidas como Folkstanz, son interpretadas por grupos vestidos con trajes tradicionales y acompañadas por música típica de la región.</p>
+<p class="research-p">Uno de los bailes más conocidos es el Bandltanz, también llamado baile de las cintas. Durante esta danza, los participantes sostienen largas cintas sujetas a la parte superior del Maibaum y realizan diferentes movimientos alrededor del árbol, formando figuras entrelazadas con gran precisión y coordinación.</p>
+<p class="research-p">Además de ser un espectáculo visual, estos bailes representan la unión, la cooperación y el respeto por las tradiciones transmitidas de generación en generación.</p>
+<h3 class="mini-head">2.5. Trajes típicos</h3>
+<p class="research-p">Durante la celebración es común que tanto participantes como asistentes utilicen la vestimenta tradicional austriaca.</p>
+<p class="research-p">Las mujeres suelen vestir el Dirndl, un traje compuesto por una blusa, un vestido ajustado y un delantal, cuya forma y colores pueden variar según la región. Por su parte, los hombres utilizan el Lederhose, un pantalón corto de cuero acompañado por camisa, tirantes, calcetas largas y un sombrero típico alpino.</p>
+<p class="research-p">Estos trajes representan el orgullo por la identidad regional y contribuyen a mantener vivas las costumbres culturales del país.</p>
+<h3 class="mini-head">2.6. Gastronomía</h3>
+<p class="research-p">La gastronomía también ocupa un lugar importante durante el Maifest. En las plazas y ferias es común encontrar puestos donde se ofrecen platillos tradicionales preparados por asociaciones comunitarias y familias del lugar.</p>
+<p class="research-p">Entre los alimentos más populares se encuentran las salchichas a la parrilla, el schnitzel, los pretzels, el goulash y diferentes tipos de panes artesanales. En cuanto a los postres, destacan el famoso strudel de manzana y diversos pasteles caseros. Estas comidas suelen acompañarse con cerveza artesanal, jugos naturales y otras bebidas tradicionales.</p>
+<p class="research-p">Además de compartir alimentos, muchas comunidades aprovechan estas celebraciones para recaudar fondos destinados a actividades culturales y sociales.</p>
+<h3 class="mini-head">2.7. Elementos gráficos y simbólicos</h3>
+<p class="research-p">El Maifest incorpora diversos elementos visuales que representan la llegada de la primavera y la identidad de cada comunidad.</p>
+<p class="research-p">Entre los principales símbolos destacan el Maibaum, las cintas de colores, las coronas de ramas verdes, las flores de temporada, los escudos municipales, los instrumentos musicales tradicionales y diferentes figuras artesanales.</p>
+<p class="research-p">Todos estos elementos transmiten ideas de crecimiento, renovación, prosperidad y esperanza, convirtiéndose en una representación visual de los valores que caracterizan esta celebración.</p>
+<h3 class="mini-head">2.8. Práctica actual de la tradición</h3>
+<p class="research-p">En la actualidad, el Maifest continúa celebrándose en numerosas regiones de Austria, especialmente en pueblos y pequeñas ciudades donde las tradiciones populares siguen teniendo una fuerte presencia.</p>
+<p class="research-p">Aunque algunas actividades han incorporado medidas modernas de seguridad, la esencia de la festividad permanece prácticamente igual. Cada año, miles de personas participan en la preparación del Maibaum, los bailes folclóricos, los conciertos, las ferias gastronómicas y las actividades familiares.</p>
+<p class="research-p">Una de las costumbres más curiosas es el Maibaumstehlen, conocido como el "robo del árbol de mayo". Se trata de una tradición amistosa entre pueblos vecinos, en la que un grupo intenta llevarse simbólicamente el árbol antes de que sea levantado oficialmente. Si el robo tiene éxito, el árbol suele recuperarse mediante una negociación en la que se ofrecen alimentos o bebidas como parte de la celebración. Lejos de generar conflictos, esta práctica fortalece la convivencia y añade un componente divertido a la festividad.</p>
+`;
+
+const temaFestivalesHtml = `
+<h3 class="mini-head">3.1. Organización de festivales familiares</h3>
+<p class="research-p">A diferencia de otros eventos dirigidos a un público específico, los festivales familiares deben considerar las necesidades de niños, jóvenes, adultos y personas mayores, procurando que todos encuentren actividades y espacios de interés. Para lograrlo, es necesario planificar aspectos como la distribución del espacio, la circulación de los asistentes, la programación de actividades, la oferta gastronómica, las medidas de seguridad y la comunicación visual del evento.</p>
+<p class="research-p">Esto implica que las personas puedan localizar fácilmente los diferentes espacios, comprender la programación del evento y acceder sin dificultad a servicios como baños, áreas de descanso, puestos de comida o zonas de actividades.</p>
+<h3 class="mini-head">3.2. Señalética para eventos</h3>
+<p class="research-p">La señalización podría utilizarse para identificar los puestos de comida, las áreas de baile, la ubicación del Maibaum, los servicios sanitarios, las zonas de descanso, las actividades infantiles y los puntos de venta de boletos para la rifa. Además de cumplir una función práctica, la señalética puede convertirse en un elemento que refuerce la identidad visual.</p>
+<h3 class="mini-head">3.3. Mapas y recorridos</h3>
+<p class="research-p">Debido a que el evento reúne múltiples actividades, puestos gastronómicos, espacios de convivencia y áreas de presentaciones, un mapa permitiría ubicar fácilmente cada punto de interés y planificar el recorrido según las preferencias de cada visitante. Además de su función informativa, este recurso puede diseñarse como parte de la identidad gráfica del evento, incorporando ilustraciones, colores y elementos inspirados en la tradición austríaca para convertirlo en una pieza atractiva y funcional.</p>
+<h3 class="mini-head">3.4. Menús y puntos de venta</h3>
+<p class="research-p">La gastronomía constituye uno de los principales atractivos del festival, junto con las presentaciones de bailes folclóricos. Durante la reunión con el Instituto Austriaco se mencionó la necesidad de mejorar la presentación visual de los menús y de los puestos de venta, ya que actualmente existe una oportunidad para hacer la experiencia más organizada y atractiva. Se propuso desarrollar menús impresos de mayor tamaño, identificadores para cada stand y piezas gráficas que mantengan una identidad coherente con el evento.</p>
+<p class="research-p">Estas mejoras no solo facilitarían el proceso de compra, sino que también contribuirían a reforzar la imagen del festival y a incrementar la recaudación de fondos para la Asociación Amigos mediante una comunicación más clara y profesional.</p>
+<h3 class="mini-head">3.5. Programaciones de actividades</h3>
+<p class="research-p">Una programación bien estructurada permitiría que los asistentes conozcan con anticipación el desarrollo de actividades como el Folksdance, las presentaciones culturales, la ceremonia relacionada con el Maibaum, las actividades infantiles, la rifa y los distintos espacios gastronómicos.</p>
+<h3 class="mini-head">3.6. Aplicaciones y sistemas de pago</h3>
+<p class="research-p">Una aplicación debe ser intuitiva, contar con una navegación sencilla y presentar la información de manera clara para que cualquier persona pueda utilizarla sin dificultad, independientemente de su edad o experiencia tecnológica.</p>
+<h3 class="mini-head">3.7. Experiencia antes, durante y después del evento</h3>
+<p class="research-p">Antes del evento, el objetivo principal es generar expectativa e informar a los asistentes sobre aspectos como la fecha, el lugar, las actividades y la forma de participar. Para ello se utilizan recursos como invitaciones, publicaciones en redes sociales, correos electrónicos, páginas web y campañas promocionales.</p>
+<p class="research-p">Durante el evento, la experiencia depende en gran medida de la facilidad con la que las personas puedan orientarse, acceder a la información y disfrutar de las actividades. En esta etapa cobran especial importancia elementos como la señalética, los mapas, los programas de actividades, los puntos de información y las plataformas digitales.</p>
+<p class="research-p">Finalmente, después del evento, la comunicación continúa mediante publicaciones con fotografías, agradecimientos, resultados, encuestas de satisfacción y contenido que permita mantener el recuerdo de la experiencia y fortalecer la relación con los asistentes.</p>
+`;
+
+const temaRecaudacionHtml = `
+<h3 class="mini-head">4.1. Rifas benéficas</h3>
+<p class="research-p">Además de representar una fuente importante de ingresos, las rifas benéficas fortalecen el sentido de participación y pertenencia entre los asistentes. Las personas no solo colaboran por la posibilidad de obtener un premio, sino también porque sienten que su aporte contribuirá al bienestar de una comunidad o al desarrollo de un proyecto con impacto positivo. Por esta razón, una comunicación clara sobre el destino de los fondos y los beneficios que se obtendrán resulta fundamental para incentivar la participación y generar confianza.</p>
+<h3 class="mini-head">4.2. Motivaciones para donar</h3>
+<p class="research-p">Estas motivaciones pueden ser de carácter emocional, social o personal, y suelen estar relacionadas con el deseo de ayudar, generar un impacto positivo en la comunidad, apoyar una institución con la que existe un vínculo afectivo o formar parte de una iniciativa con un propósito significativo. En muchos casos, las personas donan cuando comprenden claramente el beneficio que su aporte tendrá para otros.</p>
+<p class="research-p">También influye el sentido de pertenencia, especialmente cuando la causa está relacionada con una comunidad de la cual forman parte, como ocurre en instituciones educativas, organizaciones locales o asociaciones sin fines de lucro. Mostrar historias, resultados o testimonios también puede fortalecer la conexión emocional y aumentar la intención de participar.</p>
+<h3 class="mini-head">4.3. Participación de empresas</h3>
+<p class="research-p">Para que esta colaboración sea efectiva, es importante comunicar de manera adecuada el papel que desempeñan las empresas dentro del evento. Reconocer públicamente su apoyo mediante materiales impresos, publicaciones en redes sociales, señalización o menciones durante las actividades permite valorar su contribución y fortalecer las relaciones para futuras ediciones.</p>
+<h3 class="mini-head">4.4. Comunicación de causas sociales</h3>
+<p class="research-p">En el Mai Fest, uno de los principales retos identificados durante la reunión fue comunicar de mejor manera la labor de la Asociación Amigos. Los organizadores comentaron que muchas personas conocen el festival, pero desconocen la función de la asociación y el destino de los fondos recaudados. Por ello, una estrategia de comunicación enfocada en explicar quiénes son, qué proyectos apoyan y cómo benefician a la comunidad educativa permitiría fortalecer su identidad, generar mayor reconocimiento y motivar una participación más activa por parte de los asistentes.</p>
+<h3 class="mini-head">4.5. Transparencia y confianza en las donaciones</h3>
+<p class="research-p">Cuando las organizaciones informan de manera abierta sobre el uso de las donaciones, fortalecen su credibilidad y aumentan la disposición de las personas y empresas para colaborar nuevamente en el futuro.</p>
+<p class="research-p">La confianza también se construye mediante una comunicación constante y coherente. Informar sobre los proyectos financiados, compartir resultados alcanzados y reconocer públicamente el apoyo de los donantes demuestra compromiso y responsabilidad con la comunidad.</p>
+<p class="research-p">Incorporar piezas gráficas que comuniquen el destino de las donaciones, los proyectos beneficiados y el impacto alcanzado contribuiría a generar mayor confianza entre padres de familia, exalumnos, empresas colaboradoras y asistentes al festival, fortaleciendo así la sostenibilidad del evento en futuras ediciones.</p>
+`;
+
+const temaInspiracionHtml = `
+<ul class="a-list"><li>Nostalgia.</li><li>Hogar y pertenencia.</li><li>Comunidad.</li><li>Tradiciones familiares.</li><li>Intercambio entre Austria y Guatemala.</li><li>Ambientes rurales europeos.</li><li>Madera, flores, textiles y tabernas.</li></ul>
+`;
+
+/* ---------- INSIGHTS: contenido mapeado ---------- */
+const insightsData = [
+  {
+    num: "1",
+    title: "La costumbre puede ocultar el propósito",
+    quote: "He participado tantas veces en el MaiFest que sé perfectamente qué hacer, pero no siempre me detengo a pensar para quién lo estoy haciendo.",
+    origen: "La comunidad conoce el evento desde hace años, participa constantemente y sabe que existe una recaudación, pero el conocimiento sobre Amigos y el destino del dinero es mucho menor.",
+    tension: [
+      { label: "Deseo", text: "participar en una tradición que conocen y disfrutan." },
+      { label: "Fricción", text: "la repetición puede convertir la colaboración en algo automático." }
+    ]
+  },
+  {
+    num: "2",
+    title: "Ayudar se siente distinto cuando puedo verlo",
+    quote: "Sé que estoy colaborando, pero necesito ver a quién llega mi ayuda para sentir que realmente hice algo por alguien.",
+    origen: "Este nace directamente de la desconexión entre saber que se recauda y comprender el impacto.",
+    tension: [
+      { label: "Deseo", text: "sentir que mi participación realmente ayuda." },
+      { label: "Fricción", text: "actualmente puedo participar, comprar o aportar sin visualizar el resultado de mi acción." }
+    ]
+  },
+  {
+    num: "3",
+    title: "No quiero salir del MaiFest para ayudar",
+    quote: "Quiero ayudar, pero me nace más hacerlo mientras estoy disfrutando y participando que cuando solamente me piden dinero.",
+    origen: "19 de 22 estudiantes prefieren apoyar comprando comida o productos y varias formas activas de participación superan a la donación directa.",
+    tension: [
+      { label: "Deseo", text: "contribuir." },
+      { label: "Fricción", text: "una colaboración pasiva se siente desconectada de la experiencia que quieren vivir." }
+    ]
+  },
+  {
+    num: "4",
+    title: "Una tradición prestada terminó convirtiéndose en algo nuestro",
+    quote: "Tal vez esta tradición empezó lejos de nosotros, pero después de vivirla tantos años ya también cuenta nuestra historia.",
+    origen: "La revelación está en que la tradición cambia emocionalmente de dueño: nace en Austria, pero las familias del Instituto la incorporan a sus propios recuerdos.",
+    tension: [
+      { label: "Deseo", text: "conservar algo que sienten propio." },
+      { label: "Fricción", text: "culturalmente la tradición proviene de otro lugar." }
+    ]
+  },
+  {
+    num: "5",
+    title: "Lo que permanece son las personas",
+    quote: "Puedo olvidar qué había en años anteriores, pero no con quién la viví.",
+    tension: [
+      { label: "Deseo", text: "disfrutar todas las actividades del festival." },
+      { label: "Realidad emocional", text: "lo que termina volviéndose significativo no necesariamente es la programación, sino las relaciones que ocurren alrededor de ella." }
+    ]
+  },
+  {
+    num: "6",
+    title: "Ayudamos a otros mientras celebramos a los nuestros",
+    quote: "Vengo a celebrar con mi comunidad, pero me mueve más participar cuando siento que esa celebración también puede hacer algo por otra.",
+    origen: "Hay una comunidad visible, la del Instituto, que convive durante MaiFest. Y otra comunidad que puede beneficiarse gracias a lo recaudado.",
+    tension: [
+      { label: "Deseo", text: "disfrutar un momento propio, familiar y comunitario." },
+      { label: "Fricción", text: "el impacto hacia otras personas puede sentirse distante o invisible." }
+    ],
+    note: "Este ya empieza a abrir un territorio conceptual bastante rico."
+  },
+  {
+    num: "7",
+    title: "Quiero que mi tradición signifique algo más que repetirla",
+    quote: "Me gusta volver a lo mismo cada año, pero quiero sentir que cada vez que participo también estoy dejando algo nuevo.",
+    origen: "La audiencia no quiere perder la tradición, pero al mismo tiempo los estudiantes piden nuevas razones para participar, más actividades y una experiencia más dinámica.",
+    tension: [
+      { label: "Deseo", text: "conservar lo familiar." },
+      { label: "Deseo contrario", text: "que la experiencia continúe teniendo significado y no se vuelva solamente repetición." }
+    ]
+  },
+  {
+    num: "8",
+    title: "La ayuda necesita entrar a nuestros recuerdos",
+    quote: "Recuerdo los bailes, la comida y a las personas con las que estuve; quisiera poder recordar con la misma claridad a quién ayudamos ese día.",
+    origen: "MaiFest tiene una capacidad enorme para generar memoria, pero actualmente la causa social no ocupa el mismo lugar dentro de esos recuerdos.",
+    tension: [
+      { label: "Deseo", text: "recordar una experiencia significativa." },
+      { label: "Fricción", text: "recuerdo claramente lo que disfruté, pero no necesariamente el impacto que generé." }
+    ],
+    note: "Aquí la comunicación tiene una oportunidad muy concreta: hacer memorable la ayuda, no únicamente explicarla."
+  }
+];
+
+function insightBlockHtml(item){
+  let html = `<div class="survey-block">`;
+  html += `<p class="survey-q">${item.num}. ${item.title}</p>`;
+  html += `<p class="insight-quote">"${item.quote}"</p>`;
+  if (item.origen) {
+    html += `<h3 class="mini-head">¿De dónde sale?</h3><p class="research-p">${item.origen}</p>`;
+  }
+  html += `<h3 class="mini-head">Tensión</h3><ul class="a-list">`;
+  item.tension.forEach(t => { html += `<li><strong>${t.label}:</strong> ${t.text}</li>`; });
+  html += `</ul>`;
+  if (item.note) html += `<p class="insight-note">${item.note}</p>`;
+  html += `</div>`;
+  return html;
+}
+
+function insightsIdentificadosHtml(){
+  return insightsData.map(insightBlockHtml).join('');
+}
+
+const insightElegidoHtml = `
+<p class="survey-q">${insightsData[0].title}</p>
+<p class="insight-quote">"${insightsData[0].quote}"</p>
+<h3 class="mini-head">Identidad de ellos</h3>
+<p class="research-p">Personas que ya forman parte activa de la comunidad del Instituto y que viven el MaiFest como una tradición conocida y repetida año tras año.</p>
+<h3 class="mini-head">Relación con el dato</h3>
+<p class="research-p">Este insight se relaciona directamente con los datos de la encuesta que muestran alta familiaridad con el evento (ningún estudiante lo vive por primera vez) frente a un conocimiento parcial sobre la Asociación Amigos y su propósito de recaudación.</p>
+`;
+
+/* ---------- referencias ---------- */
+const referenciasData = [
+  { text: "Asociación Alemana de Beneficencia Guatemala. (n.d.). Aabguatemala.com. Retrieved August 3, 2026, from", url: "https://aabguatemala.com/" },
+  { text: "Asociacion De Amigos Guatemaltecos Y Austriacos Para Guatemala en Guatemala - Teléfono y Dirección. (n.d.). Com.gt. Retrieved August 3, 2026, from", url: "https://www.paginasamarillas.com.gt/empresas/asociacion-de-amigos-guatemaltecos-y-austriacos-para-guatemala/guatemala-32443990?ad=51300770" },
+  { text: "Cetino, R. (2024, July 19). Historia del Instituto Austriaco Guatemalteco. Guatemala.com.", url: "https://www.guatemala.com/aprende/historia/historia-del-instituto-austriaco-guatemalteco" },
+  { text: "de Kerret, F. (2023, December 28). How to run a raffle fundraiser: Free planner & step-by-step guide. Zeffy.com.", url: "https://www.zeffy.com/blog/how-to-do-a-raffle?Raffle" },
+  { text: "De, O. (2026, February 4). The official motif for Oktoberfest 2026 has been chosen. Oktoberfest.de.", url: "https://www.oktoberfest.de/en/magazine/oktoberfest-news/official-motif-oktoberfest-2026-has-been-chosen?utm_source=chatgpt.com" },
+  { text: "Edutin Academy [@edutinacademy]. (n.d.). Cómo mejorar la comunicación en una empresa - Curso de comunicación interna en organizaciones [Video]. Youtube. Retrieved August 3, 2026, from", url: "http://youtube.com/watch?v=a8hEVPHwuDg&t=45" },
+  { text: "EVENTOS. (2026, April 13). Fundecan.", url: "https://fundecan.org/eventos/" },
+  { text: "Eventos, Espectáculos y Temporadas Escolares 2025. (n.d.). Gob.gt. Retrieved August 3, 2026, from", url: "https://mcd.gob.gt/eventos-espectaculos-y-temporadas-escolares-2025/" },
+  { text: "Hotelplan, U. K. (n.d.). Traditional Austrian food & drink guide. Inghams.co.uk. Retrieved August 3, 2026, from", url: "https://www.inghams.co.uk/walking-holidays/inspiration/insider-guides/traditional-austrian-food" },
+  { text: "Instituto Austriaco Guatemalteco. (n.d.). Edu.gt. Retrieved August 3, 2026, from", url: "https://austriaco.edu.gt/" },
+  { text: "Lee, E. S. (n.d.). Beyond the ask: Fundraising as building donor trust. Candid. Retrieved August 3, 2026, from", url: "https://candid.org/blogs/donor-trust-fundraising-strategy/?utm_source=chatgpt.com" },
+  { text: "Österreich Institut. (2025, May 12). Customs & traditions in Austria: A guide to popular festivities all year round. Österreich Institut.", url: "https://www.oesterreichinstitut.com/en/customs-amp-traditions-in-austria-a-guide-to-popular-festivities-all-year-round/" },
+  { text: "¿Qué es la señalética? (2024, February 20). Universidad Europea Creative Campus; Creative Campus.", url: "https://creativecampus.universidadeuropea.com/blog/que-es-senaletica/" },
+  { text: "Riera, C. (2023, June 19). ¿Qué es un festival y qué tipos de festivales existen? Meetmaps Blog; Meetmaps.", url: "https://blog.meetmaps.com/que-es-un-festival-y-que-tipos-de-festivales-existen/" },
+  { text: "The Austrian folk dance movement. (n.d.). {$page.Logo.Alt}. Retrieved August 3, 2026, from", url: "https://www.unesco.at/en/culture/intangible-cultural-heritage/inventory/element/the-austrian-folk-dance-movement" },
+  { text: "(N.d.-a). Facebook.com. Retrieved August 3, 2026, from", url: "https://www.facebook.com/events/autocinema-spot-drive-forum-majadas/austria-en-el-festival-eurocine-de-guatemala-sobre-ruedas/1344191252600388/" },
+  { text: "(N.d.-b). Bonterratech.com. Retrieved August 3, 2026, from", url: "https://www.bonterratech.com/blog/raffle-ideas" },
+  { text: "(N.d.-c). Kindsight.Io. Retrieved August 3, 2026, from", url: "https://kindsight.io/resources/blog/fundraising-ideas/" },
+  { text: "(N.d.-d). Facebook.com. Retrieved August 3, 2026, from", url: "https://www.facebook.com/reel/2105607356716735" }
+];
+
+const referenciasHtml = `<ul class="ref-list">${referenciasData.map(ref =>
+  `<li>${ref.text} <a href="${ref.url}" target="_blank" rel="noopener noreferrer">${ref.url}</a></li>`
+).join('')}</ul>`;
+
+/* ---------- estructura del índice ---------- */
+const indice = [
+  {
+    num: "01",
+    label: "Brief",
+    subs: briefData.map(cat => ({ label: cat.title, content: qaHtml(cat), anchor: cat.filled ? cat.anchor : null }))
+  },
+  {
+    num: "02",
+    label: "Audiencia",
+    subs: [
+      { label: "1. Instrumentos", content: null, anchor: "audiencia-1" },
+      { label: "2. Resultados de la observación y acercamientos", content: null, anchor: "audiencia-2" },
+      { label: "3. Ruta del usuario", content: null, anchor: "audiencia-3" },
+      { label: "4. Buyer persona", content: null, anchor: "audiencia-4" },
+      { label: "5. Customer journey map", content: null, anchor: "audiencia-5" }
+    ]
+  },
+  {
+    num: "03",
+    label: "Cliente",
+    subs: [
+      { label: "1. Generalidades del cliente", content: null, anchor: "cliente-1" },
+      { label: "2. Asociación Amigos", content: null, anchor: "cliente-2" },
+      { label: "3. Antecedentes de comunicación", content: null, anchor: "cliente-3" },
+      { label: "4. Competencia y referentes", content: null, anchor: "cliente-4" }
+    ]
+  },
+  {
+    num: "04",
+    label: "Tema",
+    subs: [
+      { label: "1. Generalidades del tema", content: null, anchor: "tema-1" },
+      { label: "2. Particularidades del MaiFest", content: null, anchor: "tema-2" },
+      { label: "3. Festivales y experiencia", content: null, anchor: "tema-3" },
+      { label: "4. Recaudación y participación", content: null, anchor: "tema-4" },
+      { label: "5. Temas de inspiración", content: null, anchor: "tema-5" }
+    ]
+  },
+  {
+    num: "05",
+    label: "Insights",
+    subs: [
+      { label: "1. Recolección de hallazgos", content: null, anchor: "insights-1" },
+      { label: "2. Insights identificados", content: null, anchor: "insights-2" },
+      { label: "3. Insight elegido", content: null, anchor: "insights-3" }
+    ]
+  },
+  { num: "06", label: "Referencias", subs: [], anchor: "referencias" },
+  { num: "07", label: "Anexos", subs: [] }
+];
+
+/* ---------- render índice (acordeón anidado) ---------- */
+/* ---------- navegación entre "páginas" (vista principal / vistas de cada sección) ---------- */
+const viewMain = document.getElementById('view-main');
+const views = {
+  brief: document.getElementById('view-brief'),
+  audiencia: document.getElementById('view-audiencia'),
+  cliente: document.getElementById('view-cliente'),
+  tema: document.getElementById('view-tema'),
+  insights: document.getElementById('view-insights'),
+  referencias: document.getElementById('view-referencias')
+};
+
+function pageForAnchor(anchor){
+  if (!anchor) return 'brief';
+  if (anchor.startsWith('brief')) return 'brief';
+  if (anchor.startsWith('audiencia')) return 'audiencia';
+  if (anchor.startsWith('cliente')) return 'cliente';
+  if (anchor.startsWith('tema')) return 'tema';
+  if (anchor.startsWith('insights')) return 'insights';
+  if (anchor.startsWith('referencias')) return 'referencias';
+  return 'brief';
+}
+
+function goToPage(page, anchor){
+  viewMain.style.display = 'none';
+  Object.values(views).forEach(v => { v.style.display = 'none'; });
+  views[page].style.display = 'block';
+  window.scrollTo(0, 0);
+  if (anchor) {
+    requestAnimationFrame(() => {
+      const target = document.getElementById(anchor);
+      if (target) target.scrollIntoView({ behavior: 'auto', block: 'start' });
+    });
+  }
+}
+
+function goToMain(){
+  Object.values(views).forEach(v => { v.style.display = 'none'; });
+  viewMain.style.display = 'block';
+  window.scrollTo(0, 0);
+}
+
+document.querySelectorAll('[data-back]').forEach(btn => btn.addEventListener('click', goToMain));
+
+const mainAccordion = document.getElementById('mainAccordion');
+
+indice.forEach(main => {
+  const mainItem = document.createElement('div');
+  mainItem.className = 'main-item';
+
+  const mainBtn = document.createElement('button');
+  mainBtn.className = 'main-btn';
+  mainBtn.setAttribute('aria-expanded', 'false');
+
+  if (main.anchor) {
+    // ya tiene contenido desarrollado: abre su propia página en esa sección
+    mainBtn.innerHTML = `<span class="main-title">${main.num}. ${main.label}</span><span class="main-plus">→</span>`;
+    mainBtn.addEventListener('click', () => goToPage(pageForAnchor(main.anchor), main.anchor));
+    mainItem.appendChild(mainBtn);
+    mainAccordion.appendChild(mainItem);
+    return;
+  }
+
+  mainBtn.innerHTML = `<span class="main-title">${main.num}. ${main.label}</span><span class="main-plus">+</span>`;
+
+  const mainPanel = document.createElement('div');
+  mainPanel.className = 'main-panel';
+
+  const subUl = document.createElement('ul');
+  subUl.className = 'sub-list';
+
+  if (main.subs.length === 0) {
+    subUl.innerHTML = `<li class="placeholder">Contenido pendiente por agregar.</li>`;
+  } else {
+    main.subs.forEach(sub => {
+      const subItem = document.createElement('li');
+      subItem.className = 'sub-item';
+
+      const subBtn = document.createElement('button');
+      subBtn.className = 'sub-btn';
+      subBtn.setAttribute('aria-expanded', 'false');
+
+      if (sub.anchor) {
+        // ya tiene contenido desarrollado: abre la página del Brief en esa sección
+        subBtn.classList.add('sub-btn-link');
+        subBtn.innerHTML = `<span>${sub.label}</span><span class="sub-arrow">→</span>`;
+        subBtn.addEventListener('click', () => goToPage(pageForAnchor(sub.anchor), sub.anchor));
+        subItem.appendChild(subBtn);
+        subUl.appendChild(subItem);
+        return;
+      }
+
+      subBtn.textContent = sub.label;
+
+      const subPanel = document.createElement('div');
+      subPanel.className = 'sub-panel';
+      const subInner = document.createElement('div');
+      subInner.className = 'sub-panel-inner';
+      subInner.innerHTML = sub.content ? sub.content : `<p class="placeholder" style="text-align:left;padding:0;">Contenido pendiente por agregar.</p>`;
+      subPanel.appendChild(subInner);
+
+      subBtn.addEventListener('click', () => {
+        const isOpen = subItem.classList.contains('open');
+        if (isOpen) {
+          subItem.classList.remove('open');
+          subPanel.style.maxHeight = null;
+          subBtn.setAttribute('aria-expanded', 'false');
+        } else {
+          subItem.classList.add('open');
+          subPanel.style.maxHeight = subPanel.scrollHeight + 'px';
+          subBtn.setAttribute('aria-expanded', 'true');
+        }
+        // reflow parent height since it grew/shrank
+        if (mainItem.classList.contains('open')) {
+          requestAnimationFrame(() => {
+            mainPanel.style.maxHeight = mainPanel.scrollHeight + 'px';
+          });
+        }
+      });
+
+      subItem.appendChild(subBtn);
+      subItem.appendChild(subPanel);
+      subUl.appendChild(subItem);
+    });
+  }
+
+  mainPanel.appendChild(subUl);
+
+  mainBtn.addEventListener('click', () => {
+    const isOpen = mainItem.classList.contains('open');
+    document.querySelectorAll('.main-item.open').forEach(openItem => {
+      if (openItem !== mainItem) {
+        openItem.classList.remove('open');
+        openItem.querySelector('.main-panel').style.maxHeight = null;
+        openItem.querySelector('.main-btn').setAttribute('aria-expanded', 'false');
+      }
+    });
+    if (isOpen) {
+      mainItem.classList.remove('open');
+      mainPanel.style.maxHeight = null;
+      mainBtn.setAttribute('aria-expanded', 'false');
+    } else {
+      mainItem.classList.add('open');
+      mainPanel.style.maxHeight = mainPanel.scrollHeight + 'px';
+      mainBtn.setAttribute('aria-expanded', 'true');
+    }
+  });
+
+  mainItem.appendChild(mainBtn);
+  mainItem.appendChild(mainPanel);
+  mainAccordion.appendChild(mainItem);
+});
+
+/* ---------- flow content: desarrollo de las categorías ya redactadas (una página por sección) ---------- */
+let flowBriefHtml = '';
+briefData.filter(cat => cat.filled).forEach(cat => {
+  flowBriefHtml += `<h3 class="research-sub" id="${cat.anchor}">${cat.title}</h3>` + qaHtml(cat);
+});
+document.getElementById('flowContentBrief').innerHTML = flowBriefHtml;
+
+let flowAudienciaHtml = `<h3 class="research-sub" id="audiencia-1">1. Instrumentos</h3>` + instrumentosHtml;
+flowAudienciaHtml += `<h3 class="research-sub" id="audiencia-2">2. Resultados de la observación y acercamientos</h3>` + resultadosHtml() + resultadosPadresHtml();
+flowAudienciaHtml += `<h3 class="research-sub" id="audiencia-3">3. Ruta del usuario</h3>` + rutaHtml + `<img class="survey-img" src="ruta.jpg" alt="Ruta del usuario">`;
+flowAudienciaHtml += `<h3 class="research-sub" id="audiencia-4">4. Buyer persona</h3><img class="survey-img" src="buyer1.jpg" alt="Buyer persona 1"><img class="survey-img" src="buyer2.jpg" alt="Buyer persona 2">`;
+flowAudienciaHtml += `<h3 class="research-sub" id="audiencia-5">5. Customer journey map</h3><img class="survey-img" src="cjm.jpg" alt="Customer journey map">`;
+document.getElementById('flowContentAudiencia').innerHTML = flowAudienciaHtml;
+
+let flowClienteHtml = `<h3 class="research-sub" id="cliente-1">1. Generalidades del cliente</h3>` + clienteGeneralidadesHtml;
+flowClienteHtml += `<h3 class="research-sub" id="cliente-2">2. Asociación Amigos</h3>` + clienteAmigosHtml;
+flowClienteHtml += `<h3 class="research-sub" id="cliente-3">3. Antecedentes de comunicación</h3>` + clienteAntecedentesHtml;
+flowClienteHtml += `<h3 class="research-sub" id="cliente-4">4. Competencia y referentes</h3>` + clienteCompetenciaHtml;
+document.getElementById('flowContentCliente').innerHTML = flowClienteHtml;
+
+let flowTemaHtml = `<h3 class="research-sub" id="tema-1">1. Generalidades del tema</h3>` + temaGeneralidadesHtml;
+flowTemaHtml += `<h3 class="research-sub" id="tema-2">2. Particularidades del MaiFest</h3>` + maifestHistoriaHtml;
+flowTemaHtml += `<h3 class="research-sub" id="tema-3">3. Festivales y experiencia</h3>` + temaFestivalesHtml;
+flowTemaHtml += `<h3 class="research-sub" id="tema-4">4. Recaudación y participación</h3>` + temaRecaudacionHtml;
+flowTemaHtml += `<h3 class="research-sub" id="tema-5">5. Temas de inspiración</h3>` + temaInspiracionHtml;
+document.getElementById('flowContentTema').innerHTML = flowTemaHtml;
+
+let flowInsightsHtml = `<h3 class="research-sub" id="insights-1">1. Recolección de hallazgos</h3><p class="placeholder" style="text-align:left;padding:0;">Contenido pendiente por agregar.</p>`;
+flowInsightsHtml += `<h3 class="research-sub" id="insights-2">2. Insights identificados</h3>` + insightsIdentificadosHtml();
+flowInsightsHtml += `<h3 class="research-sub" id="insights-3">3. Insight elegido</h3>` + insightElegidoHtml;
+document.getElementById('flowContentInsights').innerHTML = flowInsightsHtml;
+
+document.getElementById('flowContentReferencias').innerHTML = referenciasHtml;
+</script>
+
+</body>
+</html>
